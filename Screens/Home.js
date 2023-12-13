@@ -5,21 +5,14 @@ import NavButton from "../components/NavButton/NavButton";
 const Home = () => {
 	return (
 		<View style={styles.container}>
-			<View style={styles.content}>
-				<Text style={styles.logo}>Paw Locate</Text>
-				<NavButton />
-			</View>
+			<Text style={styles.logo}>Paw Locate</Text>
+			<NavButton />
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
-	container: { flex: 1 },
-	content: {
-		flex: 1,
-		justifyContent: "center",
-		backgroundColor: "#f2fdf5",
-	},
+	container: { flex: 1, justifyContent: "center", backgroundColor: "#f2fdf5" },
 	logo: {
 		textAlign: "center",
 		backgroundColor: "#8eece7",
