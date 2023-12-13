@@ -7,7 +7,7 @@ import {
 	TouchableWithoutFeedback,
 	Keyboard,
 } from "react-native";
-import NavButton from "./components/NavButton/NavButton";
+import Home from "./Screens/Home";
 
 const App = () => {
 	return (
@@ -17,10 +17,7 @@ const App = () => {
 				onPress={() => {
 					Keyboard.dismiss();
 				}}>
-				<View style={styles.content}>
-					<Text style={styles.logo}>Paw Locate</Text>
-					<NavButton />
-				</View>
+				<Home />
 			</TouchableWithoutFeedback>
 		</SafeAreaView>
 	);
@@ -32,17 +29,6 @@ const styles = StyleSheet.create({
 	},
 	container__touchable: {
 		flex: 1,
-	},
-	content: {
-		flex: 1,
-		justifyContent: "center",
-		backgroundColor: "#f2fdf5",
-	},
-	logo: {
-		textAlign: "center",
-		backgroundColor: "#8eece7",
-		paddingBottom: 40,
-		fontSize: 50,
 	},
 });
 
