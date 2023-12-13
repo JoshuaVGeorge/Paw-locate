@@ -1,11 +1,25 @@
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import {
+	SafeAreaView,
+	View,
+	StyleSheet,
+	Text,
+	TouchableWithoutFeedback,
+	Keyboard,
+} from "react-native";
 import NavButton from "./components/NavButton/NavButton";
 
 export default function App() {
 	return (
 		<SafeAreaView style={styles.container}>
-			<Text style={styles.logo}>Paw Locate</Text>
-			<NavButton style={styles.button} />
+			<TouchableWithoutFeedback
+				onPress={() => {
+					Keyboard.dismiss();
+				}}>
+				<View>
+					<Text style={styles.logo}>Paw Locate</Text>
+					<NavButton style={styles.button} />
+				</View>
+			</TouchableWithoutFeedback>
 		</SafeAreaView>
 	);
 }
