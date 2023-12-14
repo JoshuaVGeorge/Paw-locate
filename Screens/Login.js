@@ -8,6 +8,9 @@ const Login = ({ navigation }) => {
 			<Button
 				title="create account"
 				onPress={() => navigation.navigate("CreateAccount")}></Button>
+			<Button
+				title="Profile"
+				onPress={() => navigation.navigate("Profile")}></Button>
 		</View>
 	);
 };
