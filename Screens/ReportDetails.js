@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, Button } from "react-native";
 
-const ReportDetails = ({ navigation }) => {
+const ReportDetails = ({ navigation, route }) => {
 	return (
 		<View>
 			<Text>Report Details</Text>
