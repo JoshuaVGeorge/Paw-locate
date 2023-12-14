@@ -9,7 +9,7 @@ const ReportCard = ({
 	petImg,
 	location,
 	status,
-	userID,
+	userId,
 }) => {
 	const navigation = useNavigation();
 
@@ -25,7 +25,11 @@ const ReportCard = ({
 	const descPreview = truncateToFiveWords(description);
 
 	return (
-		<View style={styles.card}>
+		<TouchableOpacity
+			style={styles.card}
+			onPress={() => {
+				navigation.navigate("ReportDetails", { reportId: id, userId: userId });
+			}}>
 			<View style={styles.section}>
 				<Text>{petName}</Text>
 			</View>
@@ -46,7 +50,7 @@ const ReportCard = ({
 			<View style={styles.section}>
 				<Text>{status}</Text>
 			</View>
-		</View>
+		</TouchableOpacity>
 	);
 };
 
