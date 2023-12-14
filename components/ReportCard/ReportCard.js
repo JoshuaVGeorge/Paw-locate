@@ -33,7 +33,7 @@ const ReportCard = () => {
 
 const styles = StyleSheet.create({
 	card: {
-		height: "50%",
+		height: 400,
 		borderWidth: 2,
 		borderRadius: 4,
 		marginBottom: 20,
