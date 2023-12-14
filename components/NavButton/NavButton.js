@@ -7,7 +7,9 @@ const NavButton = () => {
 
 	return (
 		<View style={styles.NavButtonContainer}>
-			<TouchableOpacity style={styles.button1}>
+			<TouchableOpacity
+				style={styles.button1}
+				onPress={() => navigation.navigate("ViewReports")}>
 				<Text style={styles.buttonText}>View Reports</Text>
 			</TouchableOpacity>
 			<TouchableOpacity
