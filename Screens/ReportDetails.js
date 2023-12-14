@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Text, Button } from "react-native";
 
-const Profile = ({ navigation }) => {
+const ReportDetails = ({ navigation }) => {
 	return (
 		<View>
-			<Text>Profile page</Text>
+			<Text>Report Details</Text>
 			<Button
 				title="Search Reports"
 				onPress={() => {
@@ -12,15 +12,9 @@ const Profile = ({ navigation }) => {
 				}}
 			/>
 			<Button
-				title="Create report"
+				title="Add a tip"
 				onPress={() => {
-					navigation.navigate("CreateReport");
-				}}
-			/>
-			<Button
-				title="View report"
-				onPress={() => {
-					navigation.navigate("ReportDetails");
+					navigation.navigate("AddTip");
 				}}
 			/>
 			<Button
@@ -35,4 +29,4 @@ const Profile = ({ navigation }) => {
 
 const styles = StyleSheet.create({});
 
-export default Profile;
+export default ReportDetails;

@@ -1,14 +1,14 @@
 import React from "react";
 import { View, StyleSheet, Text, Button } from "react-native";
 
-const SearchReports = ({ navigation }) => {
+const AddTip = ({ navigation }) => {
 	return (
 		<View>
-			<Text>Search Reports</Text>
+			<Text>add tip page</Text>
 			<Button
-				title="report details"
+				title="go back"
 				onPress={() => {
-					navigation.navigate("ReportDetails");
+					navigation.goBack();
 				}}
 			/>
 		</View>
@@ -17,4 +17,4 @@ const SearchReports = ({ navigation }) => {
 
 const styles = StyleSheet.create({});
 
-export default SearchReports;
+export default AddTip;
