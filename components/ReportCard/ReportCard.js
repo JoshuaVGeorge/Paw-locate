@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
 		height: "50%",
 		borderWidth: 2,
 		borderRadius: 4,
+		marginBottom: 20,
 	},
 	section: {
 		flex: 1,
