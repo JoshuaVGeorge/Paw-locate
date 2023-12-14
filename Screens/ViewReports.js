@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text, Button, FlatList } from "react-native";
 import ReportCard from "../components/ReportCard/ReportCard";
 import axios from "axios";
 import * as SplashScreen from "expo-splash-screen";
@@ -26,6 +26,7 @@ const ViewReports = ({ navigation }) => {
 
 	const checkData = useCallback(async () => {
 		if (appReady) {
+			console.log(reportData);
 			await SplashScreen.hideAsync();
 		}
 	}, [appReady]);
@@ -37,12 +38,11 @@ const ViewReports = ({ navigation }) => {
 	return (
 		<View style={styles.container} onLayout={checkData}>
 			<Text>Reports Page</Text>
-			<View style={styles.list}>
-				<ReportCard />
-				<ReportCard />
-				<ReportCard />
-				<ReportCard />
-			</View>
+			<FlatList
+				style={styles.list}
+				data={reportData}
+				renderItem={(report) => <ReportCard id={report.id} />}
+			/>
 			<Button
 				title="Search Reports"
 				onPress={() => navigation.navigate("SearchReports")}></Button>
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
 	},
 	list: {
 		flex: 1,
+		height: "90%",
 		paddingHorizontal: 30,
 	},
 });
