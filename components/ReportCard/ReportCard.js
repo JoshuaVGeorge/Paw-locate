@@ -2,30 +2,49 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const ReportCard = () => {
+const ReportCard = ({
+	id,
+	petName,
+	description,
+	petImg,
+	location,
+	status,
+	userID,
+}) => {
 	const navigation = useNavigation();
+
+	function truncateToFiveWords(inputString) {
+		const words = inputString.split(" ");
+		if (words.length > 6) {
+			return `${words.slice(0, 6).join(" ")} ...`;
+		} else {
+			return inputString;
+		}
+	}
+
+	const descPreview = truncateToFiveWords(description);
 
 	return (
 		<View style={styles.card}>
 			<View style={styles.section}>
-				<Text>Muffin</Text>
+				<Text>{petName}</Text>
 			</View>
 			<View style={styles.image__container}>
 				<Image
 					style={styles.image}
 					source={{
-						uri: "https://images.wagwalkingweb.com/media/daily_wag/blog_articles/hero/1670938235.1927571/fun-facts-about-labrador-retrievers.jpg",
+						uri: petImg,
 					}}
 				/>
 			</View>
 			<View style={styles.section}>
-				<Text>description here . lot of words to say.....</Text>
+				<Text>{descPreview}</Text>
 			</View>
 			<View style={styles.section}>
-				<Text>either coords or string of location</Text>
+				<Text>{location}</Text>
 			</View>
 			<View style={styles.section}>
-				<Text>Found or not found</Text>
+				<Text>{status}</Text>
 			</View>
 		</View>
 	);
