@@ -6,6 +6,8 @@ import Home from "./Screens/Home";
 import Login from "./Screens/Login";
 import ViewReports from "./Screens/ViewReports";
 import CreateAccount from "./Screens/CreateAccount";
+import Profile from "./Screens/Profile";
+import SearchReports from "./Screens/SearchReports";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +19,8 @@ const App = () => {
 				<Stack.Screen name="Login" component={Login} />
 				<Stack.Screen name="ViewReports" component={ViewReports} />
 				<Stack.Screen name="CreateAccount" component={CreateAccount} />
+				<Stack.Screen name="Profile" component={Profile} />
+				<Stack.Screen name="SearchReports" component={SearchReports} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
