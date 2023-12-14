@@ -5,9 +5,7 @@ const CreateAccount = ({ navigation }) => {
 	return (
 		<View>
 			<Text>Create Account</Text>
-			<Button
-				title="login"
-				onPress={() => navigation.navigate("Login")}></Button>
+			<Button title="login" onPress={() => navigation.goBack()}></Button>
 		</View>
 	);
 };
