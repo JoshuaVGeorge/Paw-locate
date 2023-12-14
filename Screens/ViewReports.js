@@ -26,7 +26,6 @@ const ViewReports = ({ navigation }) => {
 
 	const checkData = useCallback(async () => {
 		if (appReady) {
-			console.log(reportData);
 			await SplashScreen.hideAsync();
 		}
 	}, [appReady]);
@@ -37,11 +36,20 @@ const ViewReports = ({ navigation }) => {
 
 	return (
 		<View style={styles.container} onLayout={checkData}>
-			<Text>Reports Page</Text>
 			<FlatList
 				style={styles.list}
 				data={reportData}
-				renderItem={(report) => <ReportCard id={report.id} />}
+				renderItem={({ item }) => (
+					<ReportCard
+						id={item.id}
+						petName={item.pet_name}
+						petImg={item.pet_image}
+						description={item.description}
+						location={item.location_data}
+						status={item.status}
+						userId={item.user_id}
+					/>
+				)}
 			/>
 			<Button
 				title="Search Reports"
