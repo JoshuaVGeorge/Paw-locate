@@ -1,13 +1,18 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const NavButton = () => {
+	const navigation = useNavigation();
+
 	return (
 		<View style={styles.NavButtonContainer}>
 			<TouchableOpacity style={styles.button1}>
 				<Text style={styles.buttonText}>View Reports</Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={styles.button2}>
+			<TouchableOpacity
+				style={styles.button2}
+				onPress={() => navigation.navigate("Login")}>
 				<Text style={styles.buttonText}>Login</Text>
 			</TouchableOpacity>
 		</View>
