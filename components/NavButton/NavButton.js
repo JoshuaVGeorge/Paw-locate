@@ -6,7 +6,7 @@ const NavButton = () => {
 	const navigation = useNavigation();
 
 	return (
-		<View style={styles.NavButtonContainer}>
+		<View style={styles.navButtonContainer}>
 			<TouchableOpacity
 				style={styles.button1}
 				onPress={() => navigation.navigate("ViewReports")}>
@@ -22,8 +22,7 @@ const NavButton = () => {
 };
 
 const styles = StyleSheet.create({
-	NavButtonContainer: {
-		backgroundColor: "#2cdd59",
+	navButtonContainer: {
 		flexDirection: "row",
 		justifyContent: "center",
 	},
