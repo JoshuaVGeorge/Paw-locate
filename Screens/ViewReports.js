@@ -4,9 +4,11 @@ import ReportCard from "../components/ReportCard/ReportCard";
 
 const ViewReports = ({ navigation }) => {
 	return (
-		<View>
+		<View style={styles.container}>
 			<Text>Reports Page</Text>
-			<ReportCard />
+			<View style={styles.list}>
+				<ReportCard />
+			</View>
 			<Button
 				title="Search Reports"
 				onPress={() => navigation.navigate("SearchReports")}></Button>
@@ -14,6 +16,14 @@ const ViewReports = ({ navigation }) => {
 	);
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+	},
+	list: {
+		flex: 1,
+		paddingHorizontal: 30,
+	},
+});
 
 export default ViewReports;
