@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	View,
 	Image,
+	TouchableHighlight,
 } from "react-native";
 import placeholderImg from "../../assets/icon.png";
 
@@ -13,13 +14,26 @@ const ReportForm = () => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.section}>
-				<TextInput style={styles.input} placeholder="Pet name"></TextInput>
+				<TextInput
+					style={styles.input}
+					placeholder="Pet name"
+					maxLength={50}></TextInput>
 			</View>
-			<View style={styles.image__container}>
+			<TouchableHighlight
+				style={styles.image__container}
+				underlayColor="#DDDDDD"
+				// onPress={() => {
+				// 	console.log("click");}}
+			>
 				<Image style={styles.image} source={placeholderImg} />
-			</View>
-			<View style={styles.section}>
-				<TextInput style={styles.input} placeholder="description"></TextInput>
+			</TouchableHighlight>
+			<View style={[styles.section, styles.description]}>
+				<TextInput
+					style={styles.input}
+					placeholder="description"
+					maxLength={150}
+					numberOfLines={4}
+					multiline></TextInput>
 			</View>
 			<View style={styles.section}>
 				<TextInput style={styles.input} placeholder="location"></TextInput>
@@ -39,6 +53,9 @@ const styles = StyleSheet.create({
 	},
 	section: {
 		borderBottomWidth: 1,
+	},
+	description: {
+		flex: 2,
 	},
 	image__container: {
 		flex: 4,
