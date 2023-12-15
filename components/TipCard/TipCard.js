@@ -21,6 +21,9 @@ const TipCard = ({ id, img, status, text_data, user_name }) => {
 };
 
 const styles = StyleSheet.create({
+	container: {
+		marginBottom: 10,
+	},
 	title: {
 		paddingBottom: 10,
 	},
