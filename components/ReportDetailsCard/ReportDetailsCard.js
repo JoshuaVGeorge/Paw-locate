@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		aspectRatio: 16 / 9,
-		resizeMode: "cover",
+		resizeMode: "contain",
+		maxHeight: 250,
 		height: "80%",
 	},
 });
