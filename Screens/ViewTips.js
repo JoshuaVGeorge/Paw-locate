@@ -16,7 +16,7 @@ const ViewTips = ({ navigation, route }) => {
 		axios
 			.get(`${apiURL}/${reportId}/tips`)
 			.then((res) => {
-				// setReportData(res.data[0]);
+				// setTipData(res.data[0]);
 				// setAppReady(true);
 				console.log(res.data);
 			})
