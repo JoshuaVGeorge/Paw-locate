@@ -51,9 +51,9 @@ const ReportDetails = ({ navigation, route }) => {
 				}}
 			/>
 			<Button
-				title="Add a tip"
+				title="View tips"
 				onPress={() => {
-					navigation.navigate("AddTip");
+					navigation.navigate("ViewTips");
 				}}
 			/>
 			<Button
