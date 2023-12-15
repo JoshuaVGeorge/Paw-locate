@@ -3,9 +3,9 @@ import { View, StyleSheet, Text, Button, FlatList } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
 import TipCard from "../components/TipCard/TipCard";
+import { API_URL } from "@env";
 
 const ViewTips = ({ navigation, route }) => {
-	const apiURL = "http://192.168.1.72:8080/reports";
 	const { reportId } = route.params;
 
 	SplashScreen.preventAutoHideAsync();
@@ -15,7 +15,7 @@ const ViewTips = ({ navigation, route }) => {
 
 	useEffect(() => {
 		axios
-			.get(`${apiURL}/${reportId}/tips`)
+			.get(`${API_URL}/reports/${reportId}/tips`)
 			.then((res) => {
 				setTipData(res.data);
 				setAppReady(true);
