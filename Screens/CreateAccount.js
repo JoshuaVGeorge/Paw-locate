@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableWithoutFeedback,
 	Keyboard,
+	TouchableOpacity,
 } from "react-native";
 import CreateAccountForm from "../components/CreateAccountForm/CreateAccountForm";
 
@@ -17,6 +18,12 @@ const Login = ({ navigation }) => {
 			<View style={styles.container}>
 				<Text style={styles.title}>PAW LOCATE</Text>
 				<CreateAccountForm />
+				<TouchableOpacity
+					style={styles.button}
+					title="create account"
+					onPress={() => navigation.navigate("Login")}>
+					<Text style={styles.button__text}>Already have an account ?</Text>
+				</TouchableOpacity>
 			</View>
 		</TouchableWithoutFeedback>
 	);
@@ -32,6 +39,14 @@ const styles = StyleSheet.create({
 		fontSize: 50,
 		paddingBottom: 50,
 		textAlign: "center",
+	},
+	button: {
+		alignSelf: "center",
+	},
+	button__text: {
+		color: "blue",
+		textDecorationColor: "blue",
+		textDecorationLine: "underline",
 	},
 });
 
