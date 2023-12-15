@@ -12,6 +12,7 @@ import CreateReport from "./Screens/CreateReport";
 import ReportDetails from "./Screens/ReportDetails";
 import AddTip from "./Screens/AddTip";
 import EditReport from "./Screens/EditReport";
+import ViewTips from "./Screens/ViewTips";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ const App = () => {
 				<Stack.Screen name="CreateReport" component={CreateReport} />
 				<Stack.Screen name="ReportDetails" component={ReportDetails} />
 				<Stack.Screen name="AddTip" component={AddTip} />
+				<Stack.Screen name="ViewTips" component={ViewTips} />
 				<Stack.Screen name="EditReport" component={EditReport} />
 			</Stack.Navigator>
 		</NavigationContainer>
