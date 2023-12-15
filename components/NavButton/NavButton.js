@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 	navButtonContainer: {
 		flexDirection: "row",
 		justifyContent: "center",
-		gap: 10,
+		gap: 30,
 	},
 	button: {
 		padding: 10,
