@@ -1,12 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import {
-	View,
-	StyleSheet,
-	Text,
-	Button,
-	ScrollView,
-	FlatList,
-} from "react-native";
+import { View, StyleSheet, Text, Button, FlatList } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
 import TipCard from "../components/TipCard/TipCard";
