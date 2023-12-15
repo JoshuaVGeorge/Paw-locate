@@ -5,7 +5,7 @@ import NavButton from "../components/NavButton/NavButton";
 const Home = () => {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.logo}>Paw Locate</Text>
+			<Text style={styles.logo}>PAW LOCATE</Text>
 			<NavButton />
 		</View>
 	);
