@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	Keyboard,
+	Button,
 } from "react-native";
 import LoginForm from "../components/LoginForm/LoginForm";
 
@@ -24,6 +25,12 @@ const Login = ({ navigation }) => {
 					onPress={() => navigation.navigate("CreateAccount")}>
 					<Text style={styles.button__text}>Create an account</Text>
 				</TouchableOpacity>
+				<Button
+					title="profile"
+					onPress={() => {
+						navigation.navigate("Profile");
+					}}
+				/>
 			</View>
 		</TouchableWithoutFeedback>
 	);
