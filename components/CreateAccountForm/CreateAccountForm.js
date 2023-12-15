@@ -13,15 +13,20 @@ const CreateAccountForm = () => {
 			<TextInput
 				style={[styles.input, styles.username]}
 				placeholder="Username"
+				maxLength={40}
 			/>
 			<View style={styles.input__btm}>
 				<TextInput
 					style={[styles.input, styles.password]}
-					placeholder="Password"
+					placeholder="Password (max characters 20)"
+					maxLength={20}
+					secureTextEntry
 				/>
 				<TextInput
 					style={[styles.input, styles.password]}
 					placeholder="Confirm Password"
+					maxLength={20}
+					secureTextEntry
 				/>
 			</View>
 			<TouchableOpacity style={styles.button}>
