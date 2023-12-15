@@ -10,8 +10,13 @@ import {
 const LoginForm = () => {
 	return (
 		<View style={styles.container}>
-			<TextInput style={styles.input} placeholder="Username" />
-			<TextInput style={styles.input} placeholder="Password" />
+			<TextInput style={styles.input} placeholder="Username" maxLength={40} />
+			<TextInput
+				style={styles.input}
+				placeholder="Password"
+				maxLength={20}
+				secureTextEntry
+			/>
 			<TouchableOpacity style={styles.button}>
 				<Text>Login</Text>
 			</TouchableOpacity>

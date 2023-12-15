@@ -1,20 +1,50 @@
 import React from "react";
-import { View, StyleSheet, Text, Button, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import ListTile from "../components/ListTile/ListTile";
 
 const Profile = ({ navigation }) => {
+	// remove this after api data is filled
+	const userId = 1;
+
+	const goTo = (label, reportId, isTip) => {
+		if (isTip) {
+			navigation.navigate("ViewTips", { reportId: reportId });
+		} else if (label === "edit") {
+			navigation.navigate("EditReport", { reportId: reportId });
+		} else {
+			navigation.navigate("ReportDetails", { reportId: reportId });
+		}
+	};
+
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>USERNAME</Text>
+			<View style={styles.topbar}>
+				<Text style={styles.title}>USERNAME</Text>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={() => {
+						navigation.navigate("CreateReport", { userId: userId });
+					}}>
+					<Text>Add Report</Text>
+				</TouchableOpacity>
+			</View>
 			<View style={styles.reports}>
 				<Text style={styles.subheading}>Open Reports</Text>
-				<ListTile primaryLabel={"muffin"} sndLabel={"edit"} />
+				<ListTile
+					primaryLabel={"muffin"}
+					sndLabel={"edit"}
+					goTo={goTo}
+					reportId={1}
+				/>
 			</View>
 			<View style={styles.tips}>
 				<Text style={styles.subheading}>Recent Tips</Text>
 				<ListTile
 					primaryLabel={"this is a tip preview"}
 					sndLabel={"view report"}
+					goTo={goTo}
+					reportId={1}
+					isTip={true}
 				/>
 			</View>
 			<TouchableOpacity style={styles.button}>
@@ -29,9 +59,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 20,
 	},
+	topbar: {
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
+		marginBottom: 30,
+	},
 	title: {
 		fontSize: 30,
-		marginBottom: 30,
 	},
 	subheading: {
 		fontSize: 20,

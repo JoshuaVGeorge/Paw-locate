@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button, FlatList } from "react-native";
+import { View, StyleSheet, Button, FlatList } from "react-native";
 import ReportCard from "../components/ReportCard/ReportCard";
 import axios from "axios";
 import * as SplashScreen from "expo-splash-screen";
