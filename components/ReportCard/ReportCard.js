@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
 	},
 	section: {
 		flex: 1,
-		borderWidth: 1,
+		borderBottomWidth: 1,
 		paddingLeft: 5,
 		justifyContent: "center",
 	},
 	image__container: {
 		flex: 4,
-		borderWidth: 1,
+		borderBottomWidth: 1,
 		alignItems: "center",
 		padding: 10,
 	},
