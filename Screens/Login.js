@@ -1,19 +1,31 @@
 import React from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import {
+	View,
+	StyleSheet,
+	Text,
+	Button,
+	TouchableWithoutFeedback,
+	Keyboard,
+} from "react-native";
 import LoginForm from "../components/LoginForm/LoginForm";
 
 const Login = ({ navigation }) => {
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>PAW LOCATE</Text>
-			<LoginForm />
-			<Button
-				title="create account"
-				onPress={() => navigation.navigate("CreateAccount")}></Button>
-			<Button
-				title="Profile"
-				onPress={() => navigation.navigate("Profile")}></Button>
-		</View>
+		<TouchableWithoutFeedback
+			onPress={() => {
+				Keyboard.dismiss();
+			}}>
+			<View style={styles.container}>
+				<Text style={styles.title}>PAW LOCATE</Text>
+				<LoginForm />
+				<Button
+					title="create account"
+					onPress={() => navigation.navigate("CreateAccount")}></Button>
+				<Button
+					title="Profile"
+					onPress={() => navigation.navigate("Profile")}></Button>
+			</View>
+		</TouchableWithoutFeedback>
 	);
 };
 
