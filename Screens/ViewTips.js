@@ -34,7 +34,6 @@ const ViewTips = ({ navigation, route }) => {
 
 	const checkData = useCallback(async () => {
 		if (appReady) {
-			console.log(tipData);
 			await SplashScreen.hideAsync();
 		}
 	}, [appReady]);
