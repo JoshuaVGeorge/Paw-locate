@@ -20,6 +20,11 @@ const Profile = ({ navigation }) => {
 			<TouchableOpacity style={styles.button}>
 				<Text style={styles.button__text}>Log Out</Text>
 			</TouchableOpacity>
+			<Button
+				title="add report"
+				onPress={() => {
+					navigation.navigate("CreateReport");
+				}}></Button>
 		</View>
 	);
 };
