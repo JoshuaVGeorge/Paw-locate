@@ -7,10 +7,10 @@ const ListTile = ({ primaryLabel, sndLabel }) => {
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity style={[styles.report, styles.tile]}>
+			<TouchableOpacity style={[styles.primary__tile, styles.tile]}>
 				<Text style={styles.container}>{primaryLabel}</Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={[styles.edit, styles.tile]}>
+			<TouchableOpacity style={[styles.snd__tile, styles.tile]}>
 				<Text style={styles.container}>{sndLabel}</Text>
 			</TouchableOpacity>
 		</View>
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		padding: 10,
 	},
-	report: {
-		width: "50%",
+	primary__tile: {
+		width: "70%",
 		backgroundColor: "orange",
 	},
 });
