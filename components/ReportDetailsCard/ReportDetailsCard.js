@@ -10,7 +10,7 @@ const ReportDetailsCard = ({
 }) => {
 	return (
 		<View style={styles.card}>
-			<View style={styles.section}>
+			<View style={[styles.section, styles.title]}>
 				<Text>{petName}</Text>
 			</View>
 			<View style={styles.image__container}>
@@ -21,7 +21,7 @@ const ReportDetailsCard = ({
 					}}
 				/>
 			</View>
-			<View style={styles.section}>
+			<View style={[styles.section, styles.description]}>
 				<Text>{description}</Text>
 			</View>
 			<View style={styles.section}>
@@ -36,29 +36,33 @@ const ReportDetailsCard = ({
 
 const styles = StyleSheet.create({
 	card: {
-		height: 400,
+		height: 600,
 		borderWidth: 2,
 		borderRadius: 4,
 		marginBottom: 20,
 	},
 	section: {
 		flex: 1,
-		borderWidth: 1,
+		borderBottomWidth: 1,
 		paddingLeft: 5,
 		justifyContent: "center",
 	},
-	image__container: {
-		flex: 4,
-		borderWidth: 1,
+	title: {
 		alignItems: "center",
-		padding: 10,
+	},
+	description: {
+		flex: 3,
+	},
+	image__container: {
+		flex: 5,
+		borderBottomWidth: 1,
+		alignItems: "center",
+		justifyContent: "center",
 	},
 	image: {
 		aspectRatio: 16 / 9,
 		resizeMode: "cover",
-		height: "100%",
-		width: "100%",
-		borderRadius: 4,
+		height: "80%",
 	},
 });
 
