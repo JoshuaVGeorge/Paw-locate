@@ -28,7 +28,10 @@ const ReportCard = ({
 		<TouchableOpacity
 			style={styles.card}
 			onPress={() => {
-				navigation.navigate("ReportDetails", { reportId: id, userId: userId });
+				navigation.navigate("ReportDetails", {
+					reportId: id,
+					userId: userId,
+				});
 			}}>
 			<View style={styles.section}>
 				<Text>{petName}</Text>
