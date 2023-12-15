@@ -15,7 +15,6 @@ const CreateReport = () => {
 				Keyboard.dismiss();
 			}}>
 			<View style={styles.container}>
-				<Text>Create Report</Text>
 				<ReportForm />
 			</View>
 		</TouchableWithoutFeedback>
