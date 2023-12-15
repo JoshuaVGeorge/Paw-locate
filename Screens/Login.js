@@ -3,7 +3,7 @@ import {
 	View,
 	StyleSheet,
 	Text,
-	Button,
+	TouchableOpacity,
 	TouchableWithoutFeedback,
 	Keyboard,
 } from "react-native";
@@ -18,9 +18,12 @@ const Login = ({ navigation }) => {
 			<View style={styles.container}>
 				<Text style={styles.title}>PAW LOCATE</Text>
 				<LoginForm />
-				<Button
+				<TouchableOpacity
+					style={styles.button}
 					title="create account"
-					onPress={() => navigation.navigate("CreateAccount")}></Button>
+					onPress={() => navigation.navigate("CreateAccount")}>
+					<Text style={styles.button__text}>Create an account</Text>
+				</TouchableOpacity>
 			</View>
 		</TouchableWithoutFeedback>
 	);
@@ -36,6 +39,14 @@ const styles = StyleSheet.create({
 		fontSize: 50,
 		paddingBottom: 50,
 		textAlign: "center",
+	},
+	button: {
+		alignSelf: "center",
+	},
+	button__text: {
+		color: "blue",
+		textDecorationColor: "blue",
+		textDecorationLine: "underline",
 	},
 });
 
