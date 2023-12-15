@@ -8,12 +8,12 @@ const NavButton = () => {
 	return (
 		<View style={styles.navButtonContainer}>
 			<TouchableOpacity
-				style={styles.button1}
+				style={[styles.button, styles.button__primary]}
 				onPress={() => navigation.navigate("ViewReports")}>
 				<Text style={styles.buttonText}>View Reports</Text>
 			</TouchableOpacity>
 			<TouchableOpacity
-				style={styles.button2}
+				style={[styles.button, styles.button__snd]}
 				onPress={() => navigation.navigate("Login")}>
 				<Text style={styles.buttonText}>Login</Text>
 			</TouchableOpacity>
@@ -25,14 +25,11 @@ const styles = StyleSheet.create({
 	navButtonContainer: {
 		flexDirection: "row",
 		justifyContent: "center",
+		gap: 10,
 	},
-	button1: {
-		backgroundColor: "#DDDDDD",
+	button: {
 		padding: 10,
-	},
-	button2: {
-		backgroundColor: "#DDDDDD",
-		padding: 10,
+		borderWidth: 2,
 	},
 	buttonText: {
 		fontSize: 20,
