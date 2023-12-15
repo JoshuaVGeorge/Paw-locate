@@ -5,12 +5,12 @@ const SearchReports = ({ navigation }) => {
 	return (
 		<View>
 			<Text>Search Reports</Text>
-			<Button
+			{/* <Button
 				title="report details"
 				onPress={() => {
 					navigation.navigate("ReportDetails");
 				}}
-			/>
+			/> */}
 		</View>
 	);
 };
