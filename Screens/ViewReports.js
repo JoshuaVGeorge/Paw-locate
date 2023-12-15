@@ -3,10 +3,9 @@ import { View, StyleSheet, Text, Button, FlatList } from "react-native";
 import ReportCard from "../components/ReportCard/ReportCard";
 import axios from "axios";
 import * as SplashScreen from "expo-splash-screen";
+import { API_URL } from "@env";
 
 const ViewReports = ({ navigation }) => {
-	const apiURL = "http://192.168.1.72:8080/reports";
-
 	SplashScreen.preventAutoHideAsync();
 
 	const [appReady, setAppReady] = useState(false);
@@ -14,7 +13,7 @@ const ViewReports = ({ navigation }) => {
 
 	useEffect(() => {
 		axios
-			.get(apiURL)
+			.get(`${API_URL}/reports`)
 			.then((res) => {
 				setReportData(res.data);
 				setAppReady(true);
