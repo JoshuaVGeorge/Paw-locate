@@ -5,7 +5,16 @@ import ListTile from "../components/ListTile/ListTile";
 const Profile = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>USERNAME</Text>
+			<View style={styles.topbar}>
+				<Text style={styles.title}>USERNAME</Text>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={() => {
+						navigation.navigate("CreateReport");
+					}}>
+					<Text>Add Report</Text>
+				</TouchableOpacity>
+			</View>
 			<View style={styles.reports}>
 				<Text style={styles.subheading}>Open Reports</Text>
 				<ListTile primaryLabel={"muffin"} sndLabel={"edit"} />
@@ -20,11 +29,6 @@ const Profile = ({ navigation }) => {
 			<TouchableOpacity style={styles.button}>
 				<Text style={styles.button__text}>Log Out</Text>
 			</TouchableOpacity>
-			<Button
-				title="add report"
-				onPress={() => {
-					navigation.navigate("CreateReport");
-				}}></Button>
 		</View>
 	);
 };
@@ -34,9 +38,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 20,
 	},
+	topbar: {
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
+		marginBottom: 30,
+	},
 	title: {
 		fontSize: 30,
-		marginBottom: 30,
 	},
 	subheading: {
 		fontSize: 20,
