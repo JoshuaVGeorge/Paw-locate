@@ -45,15 +45,15 @@ const ReportDetails = ({ navigation, route }) => {
 				status={reportData.status}
 			/>
 			<Button
-				title="Search Reports"
+				title="View tips"
 				onPress={() => {
-					navigation.navigate("SearchReports");
+					navigation.navigate("ViewTips", { reportId: reportData.id });
 				}}
 			/>
 			<Button
-				title="View tips"
+				title="Search Reports"
 				onPress={() => {
-					navigation.navigate("ViewTips");
+					navigation.navigate("SearchReports");
 				}}
 			/>
 			<Button
