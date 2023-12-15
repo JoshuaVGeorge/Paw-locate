@@ -9,9 +9,17 @@ import {
 import placeholderImg from "../../assets/icon.png";
 
 const ReportForm = ({ isEdit, reportData }) => {
-	const [petNameValue, setPetNameValue] = useState(reportData.pet_name);
-	const [descValue, setDescValue] = useState(reportData.description);
-	const [locationValue, setLocationValue] = useState(reportData.location_data);
+	const [petNameValue, setPetNameValue] = useState("");
+	const [descValue, setDescValue] = useState("");
+	const [locationValue, setLocationValue] = useState("");
+
+	useEffect(() => {
+		if (isEdit) {
+			setDescValue(reportData.description);
+			setPetNameValue(reportData.pet_name);
+			setLocationValue(reportData.location_data);
+		}
+	}, []);
 
 	const petNameRef = useRef(null);
 	const descRef = useRef(null);
