@@ -12,10 +12,9 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
-	container: { flex: 1, justifyContent: "center", backgroundColor: "#f2fdf5" },
+	container: { flex: 1, justifyContent: "center" },
 	logo: {
 		textAlign: "center",
-		backgroundColor: "#8eece7",
 		paddingBottom: 40,
 		fontSize: 50,
 	},
