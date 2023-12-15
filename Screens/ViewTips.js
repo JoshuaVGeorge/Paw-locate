@@ -1,7 +1,15 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import {
+	View,
+	StyleSheet,
+	Text,
+	Button,
+	ScrollView,
+	FlatList,
+} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
+import TipCard from "../components/TipCard/TipCard";
 
 const ViewTips = ({ navigation, route }) => {
 	const apiURL = "http://192.168.1.72:8080/reports";
@@ -16,9 +24,8 @@ const ViewTips = ({ navigation, route }) => {
 		axios
 			.get(`${apiURL}/${reportId}/tips`)
 			.then((res) => {
-				// setTipData(res.data[0]);
-				// setAppReady(true);
-				console.log(res.data);
+				setTipData(res.data);
+				setAppReady(true);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -27,6 +34,7 @@ const ViewTips = ({ navigation, route }) => {
 
 	const checkData = useCallback(async () => {
 		if (appReady) {
+			console.log(tipData);
 			await SplashScreen.hideAsync();
 		}
 	}, [appReady]);
@@ -36,8 +44,20 @@ const ViewTips = ({ navigation, route }) => {
 	}
 
 	return (
-		<View>
-			<Text>View Tips</Text>
+		<View style={styles.container} onLayout={checkData}>
+			<Text style={styles.title}>Tip Board</Text>
+			<FlatList
+				data={tipData}
+				renderItem={({ item }) => (
+					<TipCard
+						user_name={item.user_name}
+						id={item.id}
+						img={item.image}
+						status={item.staus}
+						text_data={item.text_data}
+					/>
+				)}
+			/>
 			<Button
 				title="go back"
 				onPress={() => {
@@ -48,6 +68,15 @@ const ViewTips = ({ navigation, route }) => {
 	);
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		paddingHorizontal: 10,
+	},
+	title: {
+		textAlign: "center",
+		marginVertical: 20,
+	},
+});
 
 export default ViewTips;
