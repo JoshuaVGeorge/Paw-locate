@@ -33,20 +33,27 @@ const ReportForm = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		height: "60%",
+		height: 400,
+		borderWidth: 2,
+		borderRadius: 4,
 	},
 	section: {
-		flex: 1,
+		borderBottomWidth: 1,
 	},
 	image__container: {
-		flex: 2,
+		flex: 4,
+		borderBottomWidth: 1,
+		alignItems: "center",
+		padding: 10,
 	},
 	image: {
+		aspectRatio: 16 / 9,
 		resizeMode: "contain",
 		width: "100%",
+		height: "100%",
+		borderRadius: 4,
 	},
 	input: {
-		borderWidth: 2,
 		padding: 10,
 	},
 });
