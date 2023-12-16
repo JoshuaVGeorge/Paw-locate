@@ -1,12 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-	StyleSheet,
-	Text,
-	View,
-	TouchableWithoutFeedback,
-	Keyboard,
-	TouchableOpacity,
-} from "react-native";
+import { StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import ReportForm from "../components/ReportForm/ReportForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
