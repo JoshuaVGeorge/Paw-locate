@@ -10,14 +10,16 @@ import {
 import ReportForm from "../components/ReportForm/ReportForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const CreateReport = ({ navigation }) => {
+const CreateReport = ({ navigation, route }) => {
+	const { userId } = route.params;
+
 	return (
 		<TouchableWithoutFeedback
 			onPress={() => {
 				Keyboard.dismiss();
 			}}>
 			<SafeAreaView style={styles.container}>
-				<ReportForm />
+				<ReportForm userId={userId} />
 			</SafeAreaView>
 		</TouchableWithoutFeedback>
 	);
