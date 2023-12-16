@@ -5,6 +5,8 @@ import {
 	View,
 	Image,
 	TouchableHighlight,
+	TouchableOpacity,
+	Text,
 } from "react-native";
 import placeholderImg from "../../assets/icon.png";
 
@@ -28,59 +30,73 @@ const ReportForm = ({ isEdit, reportData }) => {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.section}>
-				<TextInput
-					ref={petNameRef}
-					style={styles.input}
-					defaultValue={isEdit ? reportData.pet_name : "Pet name"}
-					maxLength={50}
-					value={petNameValue}
-					onChangeText={(text) => setPetNameValue(text)}
-					onFocus={() => {
-						petNameRef.current.clear();
-					}}></TextInput>
+			<View style={styles.form}>
+				<View style={styles.section}>
+					<TextInput
+						ref={petNameRef}
+						style={styles.input}
+						defaultValue={isEdit ? reportData.pet_name : "Pet name"}
+						maxLength={50}
+						value={petNameValue}
+						onChangeText={(text) => setPetNameValue(text)}
+						onFocus={() => {
+							petNameRef.current.clear();
+						}}></TextInput>
+				</View>
+				<TouchableHighlight
+					style={styles.image__container}
+					underlayColor="#DDDDDD"
+					// onPress={() => {
+					// 	console.log("click");}}
+				>
+					<Image style={styles.image} source={placeholderImg} />
+				</TouchableHighlight>
+				<View style={[styles.section, styles.description]}>
+					<TextInput
+						ref={descRef}
+						style={styles.input}
+						defaultValue={isEdit ? reportData.description : "description"}
+						maxLength={150}
+						numberOfLines={4}
+						multiline
+						value={descValue}
+						onChangeText={(text) => setDescValue(text)}
+						onFocus={() => {
+							descRef.current.clear();
+						}}></TextInput>
+				</View>
+				<View style={styles.section}>
+					<TextInput
+						ref={locationRef}
+						style={styles.input}
+						defaultValue={isEdit ? reportData.location_data : "location"}
+						value={locationValue}
+						onChangeText={(text) => setLocationValue(text)}
+						onFocus={() => {
+							locationRef.current.clear();
+						}}></TextInput>
+				</View>
+				<View style={styles.section}>
+					<TextInput
+						ref={statusRef}
+						style={styles.input}
+						defaultValue={isEdit ? `${reportData.status}` : "status"}
+						onFocus={() => {
+							statusRef.current.clear();
+						}}></TextInput>
+				</View>
 			</View>
-			<TouchableHighlight
-				style={styles.image__container}
-				underlayColor="#DDDDDD"
-				// onPress={() => {
-				// 	console.log("click");}}
-			>
-				<Image style={styles.image} source={placeholderImg} />
-			</TouchableHighlight>
-			<View style={[styles.section, styles.description]}>
-				<TextInput
-					ref={descRef}
-					style={styles.input}
-					defaultValue={isEdit ? reportData.description : "description"}
-					maxLength={150}
-					numberOfLines={4}
-					multiline
-					value={descValue}
-					onChangeText={(text) => setDescValue(text)}
-					onFocus={() => {
-						descRef.current.clear();
-					}}></TextInput>
-			</View>
-			<View style={styles.section}>
-				<TextInput
-					ref={locationRef}
-					style={styles.input}
-					defaultValue={isEdit ? reportData.location_data : "location"}
-					value={locationValue}
-					onChangeText={(text) => setLocationValue(text)}
-					onFocus={() => {
-						locationRef.current.clear();
-					}}></TextInput>
-			</View>
-			<View style={styles.section}>
-				<TextInput
-					ref={statusRef}
-					style={styles.input}
-					defaultValue={isEdit ? `${reportData.status}` : "status"}
-					onFocus={() => {
-						statusRef.current.clear();
-					}}></TextInput>
+			<View style={styles.button__container}>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={() => {
+						navigation.goBack();
+					}}>
+					<Text>Cancel</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.button}>
+					<Text>Submit</Text>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);
@@ -88,6 +104,10 @@ const ReportForm = ({ isEdit, reportData }) => {
 
 const styles = StyleSheet.create({
 	container: {
+		flex: 1,
+		justifyContent: "space-between",
+	},
+	form: {
 		height: 400,
 		borderWidth: 2,
 		borderRadius: 4,
@@ -113,6 +133,17 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		padding: 10,
+	},
+	button__container: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	button: {
+		marginTop: 20,
+		borderWidth: 2,
+		alignSelf: "center",
+		paddingVertical: 10,
+		paddingHorizontal: 50,
 	},
 });
 
