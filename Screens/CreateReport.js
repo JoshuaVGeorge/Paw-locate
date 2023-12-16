@@ -10,7 +10,7 @@ import {
 import ReportForm from "../components/ReportForm/ReportForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const CreateReport = () => {
+const CreateReport = ({ navigation }) => {
 	return (
 		<TouchableWithoutFeedback
 			onPress={() => {
