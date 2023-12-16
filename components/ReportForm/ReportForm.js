@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import placeholderImg from "../../assets/icon.png";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 
 const ReportForm = ({ isEdit, reportData, userId }) => {
 	const navigation = useNavigation();
@@ -18,12 +19,14 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 	const [petNameValue, setPetNameValue] = useState("");
 	const [descValue, setDescValue] = useState("");
 	const [locationValue, setLocationValue] = useState("");
+	const [image, setImage] = useState(placeholderImg);
 
 	useEffect(() => {
 		if (isEdit) {
 			setDescValue(reportData.description);
 			setPetNameValue(reportData.pet_name);
 			setLocationValue(reportData.location_data);
+			setImage(reportData.pet_image);
 		}
 	}, []);
 
@@ -49,6 +52,7 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 			formData.append("userId", userId);
 
 			Alert.alert("report submitted");
+			console.log(formData);
 			navigation.goBack();
 		}
 	};
@@ -74,7 +78,10 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 					// onPress={() => {
 					// 	console.log("click");}}
 				>
-					<Image style={styles.image} source={placeholderImg} />
+					<Image
+						style={styles.image}
+						source={isEdit ? { uri: `${image}` } : placeholderImg}
+					/>
 				</TouchableHighlight>
 				<View style={[styles.section, styles.description]}>
 					<TextInput
