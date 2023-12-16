@@ -12,6 +12,8 @@ import {
 import placeholderImg from "../../assets/icon.png";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
+import axios from "axios";
+import { API_URL } from "@env";
 
 const ReportForm = ({ isEdit, reportData, userId }) => {
 	const navigation = useNavigation();
@@ -19,7 +21,7 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 	const [petNameValue, setPetNameValue] = useState("");
 	const [descValue, setDescValue] = useState("");
 	const [locationValue, setLocationValue] = useState("");
-	const [image, setImage] = useState(placeholderImg);
+	const [image, setImage] = useState(null);
 
 	useEffect(() => {
 		if (isEdit) {
@@ -30,6 +32,19 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 		}
 	}, []);
 
+	const pickImage = async () => {
+		const result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			aspect: [16, 9],
+			quality: 1,
+		});
+
+		if (!result.canceled) {
+			setImage(result.assets[0].uri);
+		}
+	};
+
 	const petNameRef = useRef(null);
 	const descRef = useRef(null);
 	const locationRef = useRef(null);
@@ -38,22 +53,48 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 	const formData = new FormData();
 
 	const submitForm = () => {
-		if (!petNameValue || !descValue || !locationValue) {
+		if (!petNameValue || !descValue || !locationValue || !image) {
 			Alert.alert("please fill all fields");
 		} else {
-			formData.append("image", {
-				placeholderImg,
+			formData.append("pet_image", {
+				uri: image,
 				type: "image/jpeg",
-				name: "test.jp",
+				name: `${petNameValue}.jpeg`,
 			});
-			formData.append("Pet_name", petNameValue);
-			formData.append("desc", descValue);
-			formData.append("location", locationValue);
-			formData.append("userId", userId);
+			formData.append("pet_name", petNameValue);
+			formData.append("description", descValue);
+			formData.append("location_data", locationValue);
+			formData.append("user_id", userId);
 
-			Alert.alert("report submitted");
-			console.log(formData);
-			navigation.goBack();
+			if (isEdit) {
+				axios
+					.patch(`${API_URL}/reports/${reportData.id}`, formData, {
+						headers: {
+							"Content-Type": "multipart/form-data",
+						},
+					})
+					.then((res) => {
+						Alert.alert("report edited");
+						navigation.goBack();
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			} else {
+				axios
+					.post(`${API_URL}/reports`, formData, {
+						headers: {
+							"Content-Type": "multipart/form-data",
+						},
+					})
+					.then((res) => {
+						Alert.alert("report created");
+						navigation.goBack();
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			}
 		}
 	};
 
@@ -75,12 +116,12 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 				<TouchableHighlight
 					style={styles.image__container}
 					underlayColor="#DDDDDD"
-					// onPress={() => {
-					// 	console.log("click");}}
-				>
+					onPress={() => {
+						pickImage();
+					}}>
 					<Image
 						style={styles.image}
-						source={isEdit ? { uri: `${image}` } : placeholderImg}
+						source={image === null ? placeholderImg : { uri: `${image}` }}
 					/>
 				</TouchableHighlight>
 				<View style={[styles.section, styles.description]}>
