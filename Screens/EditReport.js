@@ -1,19 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-	StyleSheet,
-	Text,
-	View,
-	TouchableWithoutFeedback,
-	Keyboard,
-	TouchableOpacity,
-} from "react-native";
+import { StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import ReportForm from "../components/ReportForm/ReportForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { API_URL } from "@env";
 import axios from "axios";
 
-const EditReport = ({ navigation, route }) => {
+const EditReport = ({ route }) => {
 	SplashScreen.preventAutoHideAsync();
 
 	const { reportId } = route.params;
@@ -50,18 +43,6 @@ const EditReport = ({ navigation, route }) => {
 			}}>
 			<SafeAreaView style={styles.container}>
 				<ReportForm isEdit={true} reportData={initialReportData} />
-				<View style={styles.button__container} onLayout={checkData}>
-					<TouchableOpacity
-						style={styles.button}
-						onPress={() => {
-							navigation.goBack();
-						}}>
-						<Text>Cancel</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.button}>
-						<Text>Submit</Text>
-					</TouchableOpacity>
-				</View>
 			</SafeAreaView>
 		</TouchableWithoutFeedback>
 	);
@@ -72,17 +53,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 10,
 		justifyContent: "space-between",
-	},
-	button__container: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-	},
-	button: {
-		marginTop: 20,
-		borderWidth: 2,
-		alignSelf: "center",
-		paddingVertical: 10,
-		paddingHorizontal: 50,
 	},
 });
 

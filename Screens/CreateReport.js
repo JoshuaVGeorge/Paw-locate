@@ -5,21 +5,21 @@ import {
 	TouchableWithoutFeedback,
 	Keyboard,
 	TouchableOpacity,
+	View,
 } from "react-native";
 import ReportForm from "../components/ReportForm/ReportForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const CreateReport = () => {
+const CreateReport = ({ navigation, route }) => {
+	const { userId } = route.params;
+
 	return (
 		<TouchableWithoutFeedback
 			onPress={() => {
 				Keyboard.dismiss();
 			}}>
 			<SafeAreaView style={styles.container}>
-				<ReportForm />
-				<TouchableOpacity style={styles.button}>
-					<Text>Submit</Text>
-				</TouchableOpacity>
+				<ReportForm userId={userId} />
 			</SafeAreaView>
 		</TouchableWithoutFeedback>
 	);
@@ -30,13 +30,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 10,
 		justifyContent: "space-between",
-	},
-	button: {
-		marginTop: 20,
-		borderWidth: 2,
-		alignSelf: "center",
-		paddingVertical: 10,
-		paddingHorizontal: 50,
 	},
 });
 
