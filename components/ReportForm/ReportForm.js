@@ -7,10 +7,14 @@ import {
 	TouchableHighlight,
 	TouchableOpacity,
 	Text,
+	Alert,
 } from "react-native";
 import placeholderImg from "../../assets/icon.png";
+import { useNavigation } from "@react-navigation/native";
 
-const ReportForm = ({ isEdit, reportData }) => {
+const ReportForm = ({ isEdit, reportData, userId }) => {
+	const navigation = useNavigation();
+
 	const [petNameValue, setPetNameValue] = useState("");
 	const [descValue, setDescValue] = useState("");
 	const [locationValue, setLocationValue] = useState("");
@@ -27,6 +31,27 @@ const ReportForm = ({ isEdit, reportData }) => {
 	const descRef = useRef(null);
 	const locationRef = useRef(null);
 	const statusRef = useRef(null);
+
+	const formData = new FormData();
+
+	const submitForm = () => {
+		if (!petNameValue || !descValue || !locationValue) {
+			Alert.alert("please fill all fields");
+		} else {
+			formData.append("image", {
+				placeholderImg,
+				type: "image/jpeg",
+				name: "test.jp",
+			});
+			formData.append("Pet_name", petNameValue);
+			formData.append("desc", descValue);
+			formData.append("location", locationValue);
+			formData.append("userId", userId);
+
+			Alert.alert("report submitted");
+			navigation.goBack();
+		}
+	};
 
 	return (
 		<View style={styles.container}>
@@ -94,7 +119,7 @@ const ReportForm = ({ isEdit, reportData }) => {
 					}}>
 					<Text>Cancel</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.button}>
+				<TouchableOpacity style={styles.button} onPress={submitForm}>
 					<Text>Submit</Text>
 				</TouchableOpacity>
 			</View>
