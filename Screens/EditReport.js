@@ -6,7 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { API_URL } from "@env";
 import axios from "axios";
 
-const EditReport = ({ navigation, route }) => {
+const EditReport = ({ route }) => {
 	SplashScreen.preventAutoHideAsync();
 
 	const { reportId } = route.params;
