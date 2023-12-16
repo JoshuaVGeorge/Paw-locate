@@ -18,18 +18,6 @@ const CreateReport = ({ navigation }) => {
 			}}>
 			<SafeAreaView style={styles.container}>
 				<ReportForm />
-				<View style={styles.button__container}>
-					<TouchableOpacity
-						style={styles.button}
-						onPress={() => {
-							navigation.goBack();
-						}}>
-						<Text>Cancel</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.button}>
-						<Text>Submit</Text>
-					</TouchableOpacity>
-				</View>
 			</SafeAreaView>
 		</TouchableWithoutFeedback>
 	);
@@ -40,17 +28,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 10,
 		justifyContent: "space-between",
-	},
-	button__container: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-	},
-	button: {
-		marginTop: 20,
-		borderWidth: 2,
-		alignSelf: "center",
-		paddingVertical: 10,
-		paddingHorizontal: 50,
 	},
 });
 
