@@ -59,7 +59,7 @@ const ReportDetails = ({ navigation, route }) => {
 			<Button
 				title="edit report"
 				onPress={() => {
-					navigation.navigate("EditReport");
+					navigation.navigate("EditReport", { reportId: reportData.id });
 				}}
 			/>
 		</View>
