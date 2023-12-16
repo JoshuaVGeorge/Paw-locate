@@ -22,7 +22,7 @@ const LoginForm = () => {
 				console.log(res.data);
 			})
 			.catch((err) => {
-				console.log(err);
+				Alert.alert("Username or Password does not match");
 			});
 	};
 
