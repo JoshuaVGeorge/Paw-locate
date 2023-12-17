@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
 import { API_URL } from "@env";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Profile = ({ navigation, route }) => {
 	SplashScreen.preventAutoHideAsync();
@@ -47,7 +48,7 @@ const Profile = ({ navigation, route }) => {
 	const [reportData, setReportData] = useState();
 	const [tipsData, setTipsData] = useState();
 
-	useEffect(() => {
+	const updatePage = () => {
 		const reqOne = axios.get(`${API_URL}/profile/${userId}/reports`);
 		const reqTwo = axios.get(`${API_URL}/profile/${userId}/tips`);
 
@@ -58,12 +59,21 @@ const Profile = ({ navigation, route }) => {
 				setAppReady(true);
 			})
 		);
+	};
+	// for initial page load
+	useEffect(() => {
+		updatePage();
 	}, []);
+
+	// for refreshing the page on mount
+	useFocusEffect(
+		React.useCallback(() => {
+			updatePage();
+		}, [])
+	);
 
 	const checkData = useCallback(async () => {
 		if (appReady) {
-			console.log(tipsData);
-			console.log(reportData);
 			await SplashScreen.hideAsync();
 		}
 	}, [appReady]);
