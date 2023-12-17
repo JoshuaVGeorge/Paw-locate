@@ -14,14 +14,11 @@ const ViewTips = ({ navigation, route }) => {
 	const [appReady, setAppReady] = useState(false);
 	const [tipData, setTipData] = useState();
 	const [userId, setUserId] = useState("");
-	const [userName, setUserName] = useState("");
 
 	const retrieveStorage = async () => {
 		try {
-			let asyncUserName = await AsyncStorage.getItem("userName");
 			let asyncUserId = await AsyncStorage.getItem("userId");
 			setUserId(asyncUserId);
-			setUserName(asyncUserName);
 		} catch (e) {
 			console.log(e);
 		}
@@ -51,9 +48,8 @@ const ViewTips = ({ navigation, route }) => {
 	}
 
 	const checkLoggedIn = () => {
-		if (userName && userId) {
+		if (userId) {
 			navigation.navigate("AddTip", {
-				userName: userName,
 				userId: userId,
 				reportId: reportId,
 			});
