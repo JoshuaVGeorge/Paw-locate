@@ -16,7 +16,7 @@ import placeholderImg from "../../assets/icon.png";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 
-const TipForm = ({ reportId, userName, userId }) => {
+const TipForm = ({ reportId, userId }) => {
 	const navigation = useNavigation();
 
 	const [textValue, setTextValue] = useState("");
@@ -46,6 +46,22 @@ const TipForm = ({ reportId, userName, userId }) => {
 				name: `tipImage.jpeg`,
 			});
 			formData.append("text_data", textValue);
+			formData.append("reportId", reportId);
+			formData.append("userId", userId);
+
+			axios
+				.post(`${API_URL}/reports/${reportId}/tips`, formData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				})
+				.then(() => {
+					Alert.alert("Tip submitted");
+					navigation.goBack();
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		}
 
 		console.log(formData);
