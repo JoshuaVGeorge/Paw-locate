@@ -56,12 +56,6 @@ const ReportDetails = ({ navigation, route }) => {
 					navigation.navigate("SearchReports");
 				}}
 			/>
-			<Button
-				title="edit report"
-				onPress={() => {
-					navigation.navigate("EditReport", { reportId: reportData.id });
-				}}
-			/>
 		</View>
 	);
 };
