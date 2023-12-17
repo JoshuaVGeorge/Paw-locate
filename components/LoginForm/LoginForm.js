@@ -11,6 +11,7 @@ import { API_URL } from "@env";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ToastAndroid } from "react-native";
 
 const LoginForm = () => {
 	const navigation = useNavigation();
@@ -77,9 +78,14 @@ const LoginForm = () => {
 			console.log(e);
 		}
 	};
+	const showToast = () => {
+		if (userToken && userName) {
+			ToastAndroid.show(`Logged in as ${userName}`, ToastAndroid.SHORT);
+		}
+	};
 
 	return (
-		<View style={styles.container}>
+		<View style={styles.container} onLayout={showToast}>
 			<TextInput
 				style={styles.input}
 				placeholder="Username"
