@@ -36,6 +36,22 @@ const TipForm = ({ reportId }) => {
 		}
 	};
 
+	const formData = new FormData();
+	const submitForm = () => {
+		if (!textValue) {
+			Alert.alert("please fill text field");
+		} else {
+			formData.append("image", {
+				uri: image,
+				type: "image/jpeg",
+				name: `tipImage.jpeg`,
+			});
+			formData.append("text_data", textValue);
+		}
+
+		console.log(formData);
+	};
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.form}>
