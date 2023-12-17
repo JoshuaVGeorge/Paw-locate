@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import ListTile from "../components/ListTile/ListTile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SplashScreen from "expo-splash-screen";
+import axios from "axios";
+import { API_URL } from "@env";
 
 const Profile = ({ navigation, route }) => {
-	const { userInfo, userToken, userName } = route.params;
-
+	SplashScreen.preventAutoHideAsync();
 	const goTo = (label, reportId, isTip) => {
 		if (isTip) {
 			navigation.navigate("ViewTips", { reportId: reportId });
@@ -16,10 +18,12 @@ const Profile = ({ navigation, route }) => {
 		}
 	};
 
+	const { userId, userToken, userName } = route.params;
+
 	const removeCredentials = async () => {
 		try {
 			await AsyncStorage.removeItem("userToken");
-			await AsyncStorage.removeItem("userInfo");
+			await AsyncStorage.removeItem("userId");
 			await AsyncStorage.removeItem("userName");
 		} catch (e) {
 			console.log(e);
@@ -32,8 +36,35 @@ const Profile = ({ navigation, route }) => {
 		Alert.alert("Logged out successfully");
 	};
 
+	const [appReady, setAppReady] = useState(false);
+	const [reportData, setReportData] = useState();
+	const [tipsData, setTipsData] = useState();
+
+	useEffect(() => {
+		const reqOne = axios.get(`${API_URL}/profile/${userId}/reports`);
+		const reqTwo = axios.get(`${API_URL}/profile/${userId}/tips`);
+
+		axios.all([reqOne, reqTwo]).then(
+			axios.spread((...res) => {
+				setReportData(res[0].data.data);
+				setTipsData(res[1].data.data);
+				setAppReady(true);
+			})
+		);
+	}, []);
+
+	const checkData = useCallback(async () => {
+		if (appReady) {
+			await SplashScreen.hideAsync();
+		}
+	}, [appReady]);
+
+	if (!appReady) {
+		return null;
+	}
+
 	return (
-		<View style={styles.container}>
+		<View style={styles.container} onLayout={checkData}>
 			<View style={styles.topbar}>
 				<Text style={styles.title}>{userName}</Text>
 				<TouchableOpacity
