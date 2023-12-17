@@ -16,8 +16,7 @@ import placeholderImg from "../../assets/icon.png";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 
-const TipForm = ({ reportId }) => {
-	console.log(reportId);
+const TipForm = ({ reportId, userName, userId }) => {
 	const navigation = useNavigation();
 
 	const [textValue, setTextValue] = useState("");
