@@ -3,11 +3,11 @@ import { View, StyleSheet, Alert } from "react-native";
 import TipForm from "../components/TipForm/TipForm";
 
 const AddTip = ({ route }) => {
-	const { reportId, userName, userId } = route.params;
+	const { reportId, userId } = route.params;
 
 	return (
 		<View style={styles.container}>
-			<TipForm reportId={reportId} userId={userId} userName={userName} />
+			<TipForm reportId={reportId} userId={userId} />
 		</View>
 	);
 };
