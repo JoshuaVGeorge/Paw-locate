@@ -9,17 +9,22 @@ import {
 } from "react-native";
 import { API_URL } from "@env";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginForm = () => {
+	const navigation = useNavigation();
 	const [usernameValue, setUsernameValue] = useState("");
 	const [passwordValue, setPasswordValue] = useState("");
 
-	const submitForm = () => {
+	const loginUser = () => {
 		const formData = { user_name: usernameValue, password: passwordValue };
 		axios
 			.post(`${API_URL}/profile`, formData)
 			.then((res) => {
-				console.log(res.data);
+				navigation.navigate("Profile", {
+					userToken: res.data.token,
+					profileData: res.data.profile,
+				});
 			})
 			.catch((err) => {
 				Alert.alert("Username or Password does not match");
@@ -43,7 +48,7 @@ const LoginForm = () => {
 				value={passwordValue}
 				onChangeText={(text) => setPasswordValue(text)}
 			/>
-			<TouchableOpacity style={styles.button} onPress={submitForm}>
+			<TouchableOpacity style={styles.button} onPress={loginUser}>
 				<Text>Login</Text>
 			</TouchableOpacity>
 		</View>
