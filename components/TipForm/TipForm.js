@@ -63,8 +63,6 @@ const TipForm = ({ reportId, userId }) => {
 					console.log(err);
 				});
 		}
-
-		console.log(formData);
 	};
 
 	return (
