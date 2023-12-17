@@ -40,11 +40,14 @@ const TipForm = ({ reportId, userId }) => {
 		if (!textValue) {
 			Alert.alert("please fill text field");
 		} else {
-			formData.append("image", {
-				uri: image,
-				type: "image/jpeg",
-				name: `tipImage.jpeg`,
-			});
+			if (image !== null) {
+				formData.append("image", {
+					uri: image,
+					type: "image/jpeg",
+					name: `tipImage.jpeg`,
+				});
+			}
+
 			formData.append("text_data", textValue);
 			formData.append("reportId", reportId);
 			formData.append("userId", userId);
