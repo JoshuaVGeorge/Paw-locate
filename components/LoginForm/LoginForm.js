@@ -24,7 +24,7 @@ const LoginForm = () => {
 
 	useEffect(() => {
 		checkLoggedIn();
-		if (userToken && userId) {
+		if (userToken && userId && userName) {
 			navigation.navigate("Profile", {
 				userId: userId,
 				userToken: userToken,
@@ -46,9 +46,9 @@ const LoginForm = () => {
 			.then((res) => {
 				storeData(res);
 				navigation.replace("Profile", {
-					userId: userId,
-					userToken: userToken,
-					userName: userName,
+					userId: res.profile[0].id,
+					userToken: res.token,
+					userName: res.profile[0].user_name,
 				});
 			})
 			.catch((err) => {
@@ -78,6 +78,7 @@ const LoginForm = () => {
 			console.log(e);
 		}
 	};
+
 	const showToast = () => {
 		if (userToken && userName) {
 			ToastAndroid.show(`Logged in as ${userName}`, ToastAndroid.SHORT);
