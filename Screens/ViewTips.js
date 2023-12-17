@@ -77,7 +77,6 @@ const ViewTips = ({ navigation, route }) => {
 				title="add a tip"
 				onPress={() => {
 					checkLoggedIn();
-					// navigation.navigate("AddTip", { reportId: reportId });
 				}}
 			/>
 			<Button
