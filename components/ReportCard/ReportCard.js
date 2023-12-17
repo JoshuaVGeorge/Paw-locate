@@ -13,16 +13,16 @@ const ReportCard = ({
 }) => {
 	const navigation = useNavigation();
 
-	function truncateToFiveWords(inputString) {
+	const truncateWords = (inputString) => {
 		const words = inputString.split(" ");
 		if (words.length > 6) {
 			return `${words.slice(0, 6).join(" ")} ...`;
 		} else {
 			return inputString;
 		}
-	}
+	};
 
-	const descPreview = truncateToFiveWords(description);
+	const descPreview = truncateWords(description);
 
 	return (
 		<TouchableOpacity

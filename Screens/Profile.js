@@ -1,11 +1,21 @@
-import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import {
+	View,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	Alert,
+	FlatList,
+} from "react-native";
 import ListTile from "../components/ListTile/ListTile";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SplashScreen from "expo-splash-screen";
+import axios from "axios";
+import { API_URL } from "@env";
+import { useFocusEffect } from "@react-navigation/native";
 
-const Profile = ({ navigation }) => {
-	// remove this after api data is filled
-	const userId = 1;
-
+const Profile = ({ navigation, route }) => {
+	SplashScreen.preventAutoHideAsync();
 	const goTo = (label, reportId, isTip) => {
 		if (isTip) {
 			navigation.navigate("ViewTips", { reportId: reportId });
@@ -16,10 +26,95 @@ const Profile = ({ navigation }) => {
 		}
 	};
 
+	const { userId, userToken, userName } = route.params;
+
+	const removeCredentials = async () => {
+		try {
+			await AsyncStorage.removeItem("userToken");
+			await AsyncStorage.removeItem("userId");
+			await AsyncStorage.removeItem("userName");
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	const logOut = () => {
+		removeCredentials();
+		navigation.navigate("Home");
+		Alert.alert("Logged out successfully");
+	};
+
+	const [appReady, setAppReady] = useState(false);
+	const [reportData, setReportData] = useState();
+	const [tipsData, setTipsData] = useState();
+
+	const updatePage = () => {
+		const reqOne = axios.get(`${API_URL}/profile/${userId}/reports`);
+		const reqTwo = axios.get(`${API_URL}/profile/${userId}/tips`);
+
+		axios.all([reqOne, reqTwo]).then(
+			axios.spread((...res) => {
+				setReportData(res[0].data);
+				setTipsData(res[1].data);
+				setAppReady(true);
+			})
+		);
+	};
+	// for initial page load
+	useEffect(() => {
+		updatePage();
+	}, []);
+
+	// for refreshing the page on mount
+	useFocusEffect(
+		React.useCallback(() => {
+			updatePage();
+		}, [])
+	);
+
+	const checkData = useCallback(async () => {
+		if (appReady) {
+			await SplashScreen.hideAsync();
+		}
+	}, [appReady]);
+
+	if (!appReady) {
+		return null;
+	}
+
+	const truncateWords = (inputString) => {
+		const words = inputString.split(" ");
+		if (words.length > 5) {
+			return `${words.slice(0, 5).join(" ")} ...`;
+		} else {
+			return inputString;
+		}
+	};
+
+	const newTipsArr = [];
+
+	const tipsPreview = tipsData.map((tip) => {
+		const preview = truncateWords(tip.text_data);
+		const newTipObj = {
+			id: tip.id,
+			text_data: preview,
+		};
+
+		return newTipsArr.push(newTipObj);
+	});
+
+	const itemCount = (arr) => {
+		if (!arr.length) {
+			return 0;
+		} else {
+			return arr.length;
+		}
+	};
+
 	return (
-		<View style={styles.container}>
+		<View style={styles.container} onLayout={checkData}>
 			<View style={styles.topbar}>
-				<Text style={styles.title}>USERNAME</Text>
+				<Text style={styles.title}>{userName}</Text>
 				<TouchableOpacity
 					style={styles.button}
 					onPress={() => {
@@ -29,25 +124,39 @@ const Profile = ({ navigation }) => {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.reports}>
-				<Text style={styles.subheading}>Open Reports</Text>
-				<ListTile
-					primaryLabel={"muffin"}
-					sndLabel={"edit"}
-					goTo={goTo}
-					reportId={1}
+				<Text style={styles.subheading}>{`Open Reports -- ${itemCount(
+					reportData
+				)}`}</Text>
+				<FlatList
+					data={reportData}
+					renderItem={({ item }) => (
+						<ListTile
+							primaryLabel={item.pet_name}
+							sndLabel={"edit"}
+							goTo={goTo}
+							reportId={item.id}
+						/>
+					)}
 				/>
 			</View>
 			<View style={styles.tips}>
-				<Text style={styles.subheading}>Recent Tips</Text>
-				<ListTile
-					primaryLabel={"this is a tip preview"}
-					sndLabel={"view report"}
-					goTo={goTo}
-					reportId={1}
-					isTip={true}
+				<Text style={styles.subheading}>{`Recent Tips -- ${itemCount(
+					tipsData
+				)}`}</Text>
+				<FlatList
+					data={newTipsArr}
+					renderItem={({ item }) => (
+						<ListTile
+							primaryLabel={item.text_data}
+							sndLabel={"view report"}
+							goTo={goTo}
+							reportId={item.id}
+							isTip={true}
+						/>
+					)}
 				/>
 			</View>
-			<TouchableOpacity style={styles.button}>
+			<TouchableOpacity style={styles.button} onPress={logOut}>
 				<Text style={styles.button__text}>Log Out</Text>
 			</TouchableOpacity>
 		</View>
