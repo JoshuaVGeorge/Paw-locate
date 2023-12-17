@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Button, FlatList } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
 import TipCard from "../components/TipCard/TipCard";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@env";
 
 const ViewTips = ({ navigation, route }) => {
@@ -12,8 +13,22 @@ const ViewTips = ({ navigation, route }) => {
 
 	const [appReady, setAppReady] = useState(false);
 	const [tipData, setTipData] = useState();
+	const [userId, setUserId] = useState("");
+	const [userName, setUserName] = useState("");
+
+	const retrieveStorage = async () => {
+		try {
+			let asyncUserName = await AsyncStorage.getItem("userName");
+			let asyncUserId = await AsyncStorage.getItem("userId");
+			setUserId(asyncUserId);
+			setUserName(asyncUserName);
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	useEffect(() => {
+		retrieveStorage();
 		axios
 			.get(`${API_URL}/reports/${reportId}/tips`)
 			.then((res) => {
@@ -35,6 +50,18 @@ const ViewTips = ({ navigation, route }) => {
 		return null;
 	}
 
+	const checkLoggedIn = () => {
+		if (userName && userId) {
+			navigation.navigate("AddTip", {
+				userName: userName,
+				userId: userId,
+				reportId: reportId,
+			});
+		} else {
+			console.log("not logged int ");
+		}
+	};
+
 	return (
 		<View style={styles.container} onLayout={checkData}>
 			<Text style={styles.title}>Tip Board</Text>
@@ -53,7 +80,8 @@ const ViewTips = ({ navigation, route }) => {
 			<Button
 				title="add a tip"
 				onPress={() => {
-					navigation.navigate("AddTip", { reportId: reportId });
+					checkLoggedIn();
+					// navigation.navigate("AddTip", { reportId: reportId });
 				}}
 			/>
 			<Button
