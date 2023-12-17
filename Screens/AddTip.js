@@ -1,12 +1,13 @@
 import React from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import TipForm from "../components/TipForm/TipForm";
 
-const AddTip = ({ navigation, route }) => {
-	const { reportId } = route.params;
+const AddTip = ({ route }) => {
+	const { reportId, userName, userId } = route.params;
+
 	return (
 		<View style={styles.container}>
-			<TipForm reportId={reportId} />
+			<TipForm reportId={reportId} userId={userId} userName={userName} />
 		</View>
 	);
 };
