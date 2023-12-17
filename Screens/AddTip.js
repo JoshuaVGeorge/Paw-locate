@@ -1,20 +1,22 @@
 import React from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
+import TipForm from "../components/TipForm/TipForm";
 
-const AddTip = ({ navigation }) => {
+const AddTip = ({ route }) => {
+	const { reportId, userId } = route.params;
+
 	return (
-		<View>
-			<Text>add tip page</Text>
-			<Button
-				title="go back"
-				onPress={() => {
-					navigation.goBack();
-				}}
-			/>
+		<View style={styles.container}>
+			<TipForm reportId={reportId} userId={userId} />
 		</View>
 	);
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		padding: 10,
+	},
+});
 
 export default AddTip;

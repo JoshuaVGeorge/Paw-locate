@@ -1,9 +1,11 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { View, StyleSheet, Text, Button, FlatList } from "react-native";
+import { View, StyleSheet, Text, Button, FlatList, Alert } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
 import TipCard from "../components/TipCard/TipCard";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@env";
+import { useFocusEffect } from "@react-navigation/native";
 
 const ViewTips = ({ navigation, route }) => {
 	const { reportId } = route.params;
@@ -12,8 +14,18 @@ const ViewTips = ({ navigation, route }) => {
 
 	const [appReady, setAppReady] = useState(false);
 	const [tipData, setTipData] = useState();
+	const [userId, setUserId] = useState("");
 
-	useEffect(() => {
+	const retrieveStorage = async () => {
+		try {
+			let asyncUserId = await AsyncStorage.getItem("userId");
+			setUserId(asyncUserId);
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	const updatePage = () => {
 		axios
 			.get(`${API_URL}/reports/${reportId}/tips`)
 			.then((res) => {
@@ -23,7 +35,20 @@ const ViewTips = ({ navigation, route }) => {
 			.catch((err) => {
 				console.error(err);
 			});
+	};
+
+	// for initial page load
+	useEffect(() => {
+		retrieveStorage();
+		updatePage();
 	}, []);
+
+	// for refreshing the page on mount
+	useFocusEffect(
+		React.useCallback(() => {
+			updatePage();
+		}, [])
+	);
 
 	const checkData = useCallback(async () => {
 		if (appReady) {
@@ -35,9 +60,28 @@ const ViewTips = ({ navigation, route }) => {
 		return null;
 	}
 
+	const checkLoggedIn = () => {
+		if (userId) {
+			navigation.navigate("AddTip", {
+				userId: userId,
+				reportId: reportId,
+			});
+		} else {
+			Alert.alert("please log in to add a tip");
+		}
+	};
+
+	const tipCount = (arr) => {
+		if (!arr.length) {
+			return 0;
+		} else {
+			return arr.length;
+		}
+	};
+
 	return (
 		<View style={styles.container} onLayout={checkData}>
-			<Text style={styles.title}>Tip Board</Text>
+			<Text style={styles.title}>{`Tip Board -- ${tipCount(tipData)}`}</Text>
 			<FlatList
 				data={tipData}
 				renderItem={({ item }) => (
@@ -53,13 +97,7 @@ const ViewTips = ({ navigation, route }) => {
 			<Button
 				title="add a tip"
 				onPress={() => {
-					navigation.navigate("AddTip");
-				}}
-			/>
-			<Button
-				title="go back"
-				onPress={() => {
-					navigation.goBack();
+					checkLoggedIn();
 				}}
 			/>
 		</View>

@@ -6,99 +6,152 @@ import {
 	TextInput,
 	TouchableOpacity,
 	Alert,
+	TouchableHighlight,
+	Image,
 } from "react-native";
 import axios from "axios";
 import { API_URL } from "@env";
 import { useNavigation } from "@react-navigation/native";
+import placeholderImg from "../../assets/icon.png";
+import { SafeAreaView } from "react-native-safe-area-context";
+import * as ImagePicker from "expo-image-picker";
 
-const CreateAccountForm = () => {
+const TipForm = ({ reportId, userId }) => {
 	const navigation = useNavigation();
 
-	const [usernameValue, setUsernameValue] = useState("");
-	const [passwordValue, setPasswordValue] = useState("");
-	const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
+	const [textValue, setTextValue] = useState("");
+	const [image, setImage] = useState(null);
 
+	const pickImage = async () => {
+		const result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			aspect: [16, 9],
+			quality: 1,
+		});
+
+		if (!result.canceled) {
+			setImage(result.assets[0].uri);
+		}
+	};
+
+	const formData = new FormData();
 	const submitForm = () => {
-		if (usernameValue.length < 3 || passwordValue.length < 5) {
-			Alert.alert(
-				"Username must be at least 3 chars Password must be at least 5 chars"
-			);
-		} else if (passwordValue !== confirmPasswordValue) {
-			Alert.alert("Passwords do not match");
+		if (!textValue) {
+			Alert.alert("please fill text field");
 		} else {
-			const formData = { user_name: usernameValue, password: passwordValue };
+			if (image !== null) {
+				formData.append("image", {
+					uri: image,
+					type: "image/jpeg",
+					name: `tipImage.jpeg`,
+				});
+			}
+
+			formData.append("text_data", textValue);
+			formData.append("reportId", reportId);
+			formData.append("userId", userId);
 
 			axios
-				.post(`${API_URL}/signup`, formData)
+				.post(`${API_URL}/reports/${reportId}/tips`, formData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				})
 				.then(() => {
-					Alert.alert("Account created");
-					navigation.navigate("Login");
+					Alert.alert("Tip submitted");
+					navigation.goBack();
 				})
 				.catch((err) => {
-					Alert.alert("Account already exists");
+					console.log(err);
 				});
 		}
 	};
 
 	return (
 		<View style={styles.container}>
-			<TextInput
-				style={[styles.input, styles.username]}
-				placeholder="Username"
-				maxLength={40}
-				value={usernameValue}
-				onChangeText={(text) => setUsernameValue(text)}
-			/>
-			<View style={styles.input__btm}>
-				<TextInput
-					style={[styles.input, styles.password]}
-					placeholder="Password (max characters 20)"
-					maxLength={20}
-					value={passwordValue}
-					onChangeText={(text) => setPasswordValue(text)}
-					secureTextEntry
-				/>
-				<TextInput
-					style={[styles.input, styles.password]}
-					placeholder="Confirm Password"
-					maxLength={20}
-					value={confirmPasswordValue}
-					onChangeText={(text) => setConfirmPasswordValue(text)}
-					secureTextEntry
-				/>
+			<View style={styles.form}>
+				<TouchableHighlight
+					style={styles.image__container}
+					underlayColor="#DDDDDD"
+					onPress={() => {
+						pickImage();
+					}}>
+					<Image
+						style={styles.image}
+						source={image === null ? placeholderImg : { uri: `${image}` }}
+					/>
+				</TouchableHighlight>
+				<View style={styles.input}>
+					<TextInput
+						style={styles.description}
+						placeholder="Enter text here"
+						maxLength={200}
+						numberOfLines={5}
+						multiline
+						value={textValue}
+						onChangeText={(text) => {
+							setTextValue(text);
+						}}></TextInput>
+				</View>
 			</View>
-			<TouchableOpacity style={styles.button} onPress={submitForm}>
-				<Text>Submit</Text>
-			</TouchableOpacity>
+			<SafeAreaView style={styles.button__container}>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={() => {
+						navigation.goBack();
+					}}>
+					<Text>Cancel</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.button} onPress={submitForm}>
+					<Text>Submit</Text>
+				</TouchableOpacity>
+			</SafeAreaView>
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		justifyContent: "center",
-		marginBottom: 30,
+		flex: 1,
+		justifyContent: "space-between",
+	},
+	form: {
+		height: 400,
+		borderWidth: 2,
+		borderRadius: 4,
 	},
 	input: {
-		height: 40,
-		borderWidth: 2,
+		flex: 1,
 		padding: 10,
 	},
-	input__btm: {
-		marginBottom: 30,
+	description: {
+		flex: 2,
 	},
-	username: {
-		marginBottom: 50,
+	image__container: {
+		flex: 3,
+		borderBottomWidth: 1,
+		alignItems: "center",
+		justifyContent: "center",
+		padding: 10,
 	},
-	password: {
-		marginBottom: 10,
+	image: {
+		aspectRatio: 16 / 9,
+		resizeMode: "contain",
+		height: "80%",
+		borderRadius: 4,
+	},
+	button__container: {
+		flexDirection: "row",
+		justifyContent: "space-between",
 	},
 	button: {
-		alignSelf: "flex-end",
-		paddingVertical: 5,
-		paddingHorizontal: 20,
+		marginTop: 20,
 		borderWidth: 2,
+		alignSelf: "center",
+		paddingVertical: 10,
+		paddingHorizontal: 50,
 	},
 });
 
-export default CreateAccountForm;
+export default TipForm;
