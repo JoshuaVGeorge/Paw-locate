@@ -48,8 +48,8 @@ const Profile = ({ navigation, route }) => {
 	const [tipsData, setTipsData] = useState();
 
 	useEffect(() => {
-		const reqOne = axios.get(`${API_URL}/profile/1/reports`);
-		const reqTwo = axios.get(`${API_URL}/profile/1/tips`);
+		const reqOne = axios.get(`${API_URL}/profile/${userId}/reports`);
+		const reqTwo = axios.get(`${API_URL}/profile/${userId}/tips`);
 
 		axios.all([reqOne, reqTwo]).then(
 			axios.spread((...res) => {
@@ -93,6 +93,14 @@ const Profile = ({ navigation, route }) => {
 		return newTipsArr.push(newTipObj);
 	});
 
+	const itemCount = (arr) => {
+		if (!arr.length) {
+			return 0;
+		} else {
+			return arr.length;
+		}
+	};
+
 	return (
 		<View style={styles.container} onLayout={checkData}>
 			<View style={styles.topbar}>
@@ -106,10 +114,9 @@ const Profile = ({ navigation, route }) => {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.reports}>
-				<Text style={styles.subheading}>Open Reports</Text>
-				<Text style={reportData ? styles.none : styles.subheading}>
-					No reports open
-				</Text>
+				<Text style={styles.subheading}>{`Open Reports -- ${itemCount(
+					reportData
+				)}`}</Text>
 				<FlatList
 					data={reportData}
 					renderItem={({ item }) => (
@@ -123,10 +130,9 @@ const Profile = ({ navigation, route }) => {
 				/>
 			</View>
 			<View style={styles.tips}>
-				<Text style={styles.subheading}>Recent Tips</Text>
-				<Text style={reportData ? styles.none : styles.subheading}>
-					No tips posted
-				</Text>
+				<Text style={styles.subheading}>{`Recent Tips -- ${itemCount(
+					tipsData
+				)}`}</Text>
 				<FlatList
 					data={newTipsArr}
 					renderItem={({ item }) => (
@@ -180,9 +186,6 @@ const styles = StyleSheet.create({
 	},
 	button__text: {
 		fontSize: 20,
-	},
-	none: {
-		display: "none",
 	},
 });
 
