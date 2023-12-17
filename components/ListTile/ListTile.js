@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: "row",
 		gap: 20,
+		marginBottom: 5,
 	},
 	tile: {
 		borderWidth: 2,
@@ -37,6 +38,10 @@ const styles = StyleSheet.create({
 	primary__tile: {
 		width: "70%",
 		backgroundColor: "orange",
+	},
+	snd__tile: {
+		alignItems: "center",
+		width: "25%",
 	},
 });
 
