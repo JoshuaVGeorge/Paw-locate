@@ -2,10 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import ListTile from "../components/ListTile/ListTile";
 
-const Profile = ({ navigation }) => {
-	// remove this after api data is filled
-	const userId = 1;
-
+const Profile = ({ navigation, route }) => {
 	const goTo = (label, reportId, isTip) => {
 		if (isTip) {
 			navigation.navigate("ViewTips", { reportId: reportId });
