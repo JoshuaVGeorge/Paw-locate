@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { View, StyleSheet, Text, Button, FlatList } from "react-native";
+import { View, StyleSheet, Text, Button, FlatList, Alert } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
 import TipCard from "../components/TipCard/TipCard";
@@ -58,7 +58,7 @@ const ViewTips = ({ navigation, route }) => {
 				reportId: reportId,
 			});
 		} else {
-			console.log("not logged int ");
+			Alert.alert("please log in to add a tip");
 		}
 	};
 
