@@ -100,12 +100,6 @@ const ViewTips = ({ navigation, route }) => {
 					checkLoggedIn();
 				}}
 			/>
-			<Button
-				title="go back"
-				onPress={() => {
-					navigation.goBack();
-				}}
-			/>
 		</View>
 	);
 };
