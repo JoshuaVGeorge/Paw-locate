@@ -1,9 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import ListTile from "../components/ListTile/ListTile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = ({ navigation, route }) => {
+	const { userInfo, userToken, userName } = route.params;
+
 	const goTo = (label, reportId, isTip) => {
 		if (isTip) {
 			navigation.navigate("ViewTips", { reportId: reportId });
@@ -18,6 +20,7 @@ const Profile = ({ navigation, route }) => {
 		try {
 			await AsyncStorage.removeItem("userToken");
 			await AsyncStorage.removeItem("userInfo");
+			await AsyncStorage.removeItem("userName");
 		} catch (e) {
 			console.log(e);
 		}
@@ -26,12 +29,13 @@ const Profile = ({ navigation, route }) => {
 	const logOut = () => {
 		removeCredentials();
 		navigation.navigate("Home");
+		Alert.alert("Logged out successfully");
 	};
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.topbar}>
-				<Text style={styles.title}>USERNAME</Text>
+				<Text style={styles.title}>{userName}</Text>
 				<TouchableOpacity
 					style={styles.button}
 					onPress={() => {

@@ -18,14 +18,16 @@ const LoginForm = () => {
 	const [passwordValue, setPasswordValue] = useState("");
 
 	const [userToken, setUserToken] = useState("");
-	const [userInfo, setUserInfo] = useState("");
+	const [userId, setUserId] = useState("");
+	const [userName, setUserName] = useState("");
 
 	useEffect(() => {
 		checkLoggedIn();
-		if (userToken && userInfo) {
+		if (userToken && userId) {
 			navigation.navigate("Profile", {
-				userInfo: userInfo,
+				userId: userId,
 				userToken: userToken,
+				userName: userName,
 			});
 		}
 	});
@@ -37,14 +39,15 @@ const LoginForm = () => {
 			.then((res) => {
 				let data = res.data;
 				setUserToken(data.token);
-				setUserInfo(data.profile[0].id);
+				setUserId(data.profile[0].id);
 				return data;
 			})
 			.then((res) => {
 				storeData(res);
 				navigation.replace("Profile", {
-					userInfo: userInfo,
+					userId: userId,
 					userToken: userToken,
+					userName: userName,
 				});
 			})
 			.catch((err) => {
@@ -55,7 +58,8 @@ const LoginForm = () => {
 	const storeData = async (data) => {
 		try {
 			await AsyncStorage.setItem("userToken", data.token);
-			await AsyncStorage.setItem("userInfo", `${data.profile[0].id}`);
+			await AsyncStorage.setItem("userId", `${data.profile[0].id}`);
+			await AsyncStorage.setItem("userName", `${data.profile[0].user_name}`);
 		} catch (e) {
 			console.log(e);
 		}
@@ -64,9 +68,11 @@ const LoginForm = () => {
 	const checkLoggedIn = async () => {
 		try {
 			let asyncUserToken = await AsyncStorage.getItem("userToken");
-			let asyncUserinfo = await AsyncStorage.getItem("userInfo");
+			let asyncUserId = await AsyncStorage.getItem("userId");
+			let asyncUserName = await AsyncStorage.getItem("userName");
 			setUserToken(asyncUserToken);
-			setUserInfo(asyncUserinfo);
+			setUserId(asyncUserId);
+			setUserName(asyncUserName);
 		} catch (e) {
 			console.log(e);
 		}
