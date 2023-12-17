@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
+import {
+	View,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	Alert,
+	FlatList,
+} from "react-native";
 import ListTile from "../components/ListTile/ListTile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from "expo-splash-screen";
@@ -41,13 +48,13 @@ const Profile = ({ navigation, route }) => {
 	const [tipsData, setTipsData] = useState();
 
 	useEffect(() => {
-		const reqOne = axios.get(`${API_URL}/profile/${userId}/reports`);
-		const reqTwo = axios.get(`${API_URL}/profile/${userId}/tips`);
+		const reqOne = axios.get(`${API_URL}/profile/1/reports`);
+		const reqTwo = axios.get(`${API_URL}/profile/1/tips`);
 
 		axios.all([reqOne, reqTwo]).then(
 			axios.spread((...res) => {
-				setReportData(res[0].data.data);
-				setTipsData(res[1].data.data);
+				setReportData(res[0].data);
+				setTipsData(res[1].data);
 				setAppReady(true);
 			})
 		);
@@ -55,6 +62,8 @@ const Profile = ({ navigation, route }) => {
 
 	const checkData = useCallback(async () => {
 		if (appReady) {
+			console.log(tipsData);
+			console.log(reportData);
 			await SplashScreen.hideAsync();
 		}
 	}, [appReady]);
@@ -62,6 +71,27 @@ const Profile = ({ navigation, route }) => {
 	if (!appReady) {
 		return null;
 	}
+
+	const truncateWords = (inputString) => {
+		const words = inputString.split(" ");
+		if (words.length > 5) {
+			return `${words.slice(0, 5).join(" ")} ...`;
+		} else {
+			return inputString;
+		}
+	};
+
+	const newTipsArr = [];
+
+	const tipsPreview = tipsData.map((tip) => {
+		const preview = truncateWords(tip.text_data);
+		const newTipObj = {
+			id: tip.id,
+			text_data: preview,
+		};
+
+		return newTipsArr.push(newTipObj);
+	});
 
 	return (
 		<View style={styles.container} onLayout={checkData}>
@@ -77,21 +107,37 @@ const Profile = ({ navigation, route }) => {
 			</View>
 			<View style={styles.reports}>
 				<Text style={styles.subheading}>Open Reports</Text>
-				<ListTile
-					primaryLabel={"muffin"}
-					sndLabel={"edit"}
-					goTo={goTo}
-					reportId={1}
+				<Text style={reportData ? styles.none : styles.subheading}>
+					No reports open
+				</Text>
+				<FlatList
+					data={reportData}
+					renderItem={({ item }) => (
+						<ListTile
+							primaryLabel={item.pet_name}
+							sndLabel={"edit"}
+							goTo={goTo}
+							reportId={item.id}
+						/>
+					)}
 				/>
 			</View>
 			<View style={styles.tips}>
 				<Text style={styles.subheading}>Recent Tips</Text>
-				<ListTile
-					primaryLabel={"this is a tip preview"}
-					sndLabel={"view report"}
-					goTo={goTo}
-					reportId={1}
-					isTip={true}
+				<Text style={reportData ? styles.none : styles.subheading}>
+					No tips posted
+				</Text>
+				<FlatList
+					data={newTipsArr}
+					renderItem={({ item }) => (
+						<ListTile
+							primaryLabel={item.text_data}
+							sndLabel={"view report"}
+							goTo={goTo}
+							reportId={item.id}
+							isTip={true}
+						/>
+					)}
 				/>
 			</View>
 			<TouchableOpacity style={styles.button} onPress={logOut}>
@@ -134,6 +180,9 @@ const styles = StyleSheet.create({
 	},
 	button__text: {
 		fontSize: 20,
+	},
+	none: {
+		display: "none",
 	},
 });
 
