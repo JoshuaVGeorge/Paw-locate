@@ -53,7 +53,7 @@ const ViewTips = ({ navigation, route }) => {
 			<Button
 				title="add a tip"
 				onPress={() => {
-					navigation.navigate("AddTip");
+					navigation.navigate("AddTip", { reportId: reportId });
 				}}
 			/>
 			<Button
