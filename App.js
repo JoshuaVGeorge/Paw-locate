@@ -21,8 +21,8 @@ const App = () => {
 		<NavigationContainer>
 			<Stack.Navigator initialRouteName="Home">
 				<Stack.Screen name="Home" component={Home} />
+				{/* account routes */}
 				<Stack.Screen name="Login" component={Login} />
-				<Stack.Screen name="ViewReports" component={ViewReports} />
 				<Stack.Screen name="CreateAccount" component={CreateAccount} />
 				<Stack.Screen
 					name="Profile"
@@ -37,12 +37,17 @@ const App = () => {
 						),
 					})}
 				/>
-				<Stack.Screen name="SearchReports" component={SearchReports} />
+
+				{/* report routes */}
+				<Stack.Screen name="ViewReports" component={ViewReports} />
 				<Stack.Screen name="CreateReport" component={CreateReport} />
 				<Stack.Screen name="ReportDetails" component={ReportDetails} />
+				<Stack.Screen name="EditReport" component={EditReport} />
+				{/* <Stack.Screen name="SearchReports" component={SearchReports} /> */}
+
+				{/* tip routes */}
 				<Stack.Screen name="AddTip" component={AddTip} />
 				<Stack.Screen name="ViewTips" component={ViewTips} />
-				<Stack.Screen name="EditReport" component={EditReport} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
