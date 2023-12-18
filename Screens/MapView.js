@@ -1,10 +1,10 @@
 import React from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
-const SearchReports = ({ navigation }) => {
+const MapView = ({ navigation }) => {
 	return (
 		<View>
-			<Text>Search Reports</Text>
+			<Text>Map view</Text>
 			{/* <Button
 				title="report details"
 				onPress={() => {
@@ -17,4 +17,4 @@ const SearchReports = ({ navigation }) => {
 
 const styles = StyleSheet.create({});
 
-export default SearchReports;
+export default MapView;
