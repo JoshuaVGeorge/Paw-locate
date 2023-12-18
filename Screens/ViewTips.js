@@ -1,5 +1,12 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { View, StyleSheet, Text, Button, FlatList, Alert } from "react-native";
+import {
+	View,
+	StyleSheet,
+	Text,
+	FlatList,
+	Alert,
+	TouchableOpacity,
+} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
 import TipCard from "../components/TipCard/TipCard";
@@ -83,6 +90,7 @@ const ViewTips = ({ navigation, route }) => {
 		<View style={styles.container} onLayout={checkData}>
 			<Text style={styles.title}>{`Tip Board -- ${tipCount(tipData)}`}</Text>
 			<FlatList
+				style={styles.list}
 				data={tipData}
 				renderItem={({ item }) => (
 					<TipCard
@@ -94,12 +102,13 @@ const ViewTips = ({ navigation, route }) => {
 					/>
 				)}
 			/>
-			<Button
-				title="add a tip"
+			<TouchableOpacity
+				style={styles.button}
 				onPress={() => {
 					checkLoggedIn();
-				}}
-			/>
+				}}>
+				<Text>Add a tip</Text>
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -107,11 +116,18 @@ const ViewTips = ({ navigation, route }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingHorizontal: 10,
+	},
+	list: {
+		padding: 20,
 	},
 	title: {
 		textAlign: "center",
 		marginVertical: 20,
+	},
+	button: {
+		borderWidth: 2,
+		paddingVertical: 10,
+		alignItems: "center",
 	},
 });
 

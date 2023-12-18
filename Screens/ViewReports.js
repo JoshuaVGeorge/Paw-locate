@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, StyleSheet, Button, FlatList } from "react-native";
+import {
+	View,
+	StyleSheet,
+	TouchableOpacity,
+	FlatList,
+	Text,
+} from "react-native";
 import ReportCard from "../components/ReportCard/ReportCard";
 import axios from "axios";
 import * as SplashScreen from "expo-splash-screen";
@@ -50,9 +56,11 @@ const ViewReports = ({ navigation }) => {
 					/>
 				)}
 			/>
-			<Button
-				title="look at the map"
-				onPress={() => navigation.navigate("MapView")}></Button>
+			<TouchableOpacity
+				style={styles.button}
+				onPress={() => navigation.navigate("MapPage")}>
+				<Text>Go to Map</Text>
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -62,9 +70,13 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	list: {
-		flex: 1,
 		height: "90%",
 		paddingHorizontal: 30,
+	},
+	button: {
+		borderTopWidth: 2,
+		paddingVertical: 10,
+		alignItems: "center",
 	},
 });
 

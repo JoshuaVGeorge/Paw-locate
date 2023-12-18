@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import axios from "axios";
 import * as SplashScreen from "expo-splash-screen";
 import ReportDetailsCard from "../components/ReportDetailsCard/ReportDetailsCard";
@@ -44,12 +44,13 @@ const ReportDetails = ({ navigation, route }) => {
 				location={reportData.location_data}
 				status={reportData.status}
 			/>
-			<Button
-				title="View tips"
+			<TouchableOpacity
+				style={styles.button}
 				onPress={() => {
 					navigation.navigate("ViewTips", { reportId: reportData.id });
-				}}
-			/>
+				}}>
+				<Text>View tips</Text>
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -57,6 +58,12 @@ const ReportDetails = ({ navigation, route }) => {
 const styles = StyleSheet.create({
 	container: {
 		paddingHorizontal: 10,
+	},
+	button: {
+		borderWidth: 2,
+		paddingVertical: 10,
+		marginHorizontal: 50,
+		alignItems: "center",
 	},
 });
 

@@ -7,12 +7,12 @@ import Login from "./Screens/Login";
 import ViewReports from "./Screens/ViewReports";
 import CreateAccount from "./Screens/CreateAccount";
 import Profile from "./Screens/Profile";
-import MapView from "./Screens/MapView";
 import CreateReport from "./Screens/CreateReport";
 import ReportDetails from "./Screens/ReportDetails";
 import AddTip from "./Screens/AddTip";
 import EditReport from "./Screens/EditReport";
 import ViewTips from "./Screens/ViewTips";
+import MapPage from "./Screens/MapPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,7 +43,7 @@ const App = () => {
 				<Stack.Screen name="CreateReport" component={CreateReport} />
 				<Stack.Screen name="ReportDetails" component={ReportDetails} />
 				<Stack.Screen name="EditReport" component={EditReport} />
-				<Stack.Screen name="MapView" component={MapView} />
+				<Stack.Screen name="MapPage" component={MapPage} />
 
 				{/* tip routes */}
 				<Stack.Screen name="AddTip" component={AddTip} />
