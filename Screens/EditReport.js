@@ -3,10 +3,10 @@ import { StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import ReportForm from "../components/ReportForm/ReportForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
-import { API_URL } from "@env";
 import axios from "axios";
 
 const EditReport = ({ route }) => {
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 	SplashScreen.preventAutoHideAsync();
 
 	const { reportId } = route.params;

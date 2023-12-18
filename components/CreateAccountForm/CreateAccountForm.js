@@ -8,11 +8,11 @@ import {
 	Alert,
 } from "react-native";
 import axios from "axios";
-import { API_URL } from "@env";
 import { useNavigation } from "@react-navigation/native";
 
 const CreateAccountForm = () => {
 	const navigation = useNavigation();
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 	const [usernameValue, setUsernameValue] = useState("");
 	const [passwordValue, setPasswordValue] = useState("");

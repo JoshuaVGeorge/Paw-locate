@@ -13,9 +13,9 @@ import placeholderImg from "../../assets/icon.png";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
-import { API_URL } from "@env";
 
 const ReportForm = ({ isEdit, reportData, userId }) => {
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 	const navigation = useNavigation();
 
 	const [petNameValue, setPetNameValue] = useState("");
@@ -105,7 +105,8 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 					<TextInput
 						ref={petNameRef}
 						style={styles.input}
-						defaultValue={isEdit ? reportData.pet_name : "Pet name"}
+						defaultValue={isEdit ? reportData.pet_name : ""}
+						placeholder="Pet name"
 						maxLength={50}
 						value={petNameValue}
 						onChangeText={(text) => setPetNameValue(text)}
@@ -128,7 +129,8 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 					<TextInput
 						ref={descRef}
 						style={styles.input}
-						defaultValue={isEdit ? reportData.description : "description"}
+						defaultValue={isEdit ? reportData.description : ""}
+						placeholder="description"
 						maxLength={150}
 						numberOfLines={4}
 						multiline
@@ -142,7 +144,8 @@ const ReportForm = ({ isEdit, reportData, userId }) => {
 					<TextInput
 						ref={locationRef}
 						style={styles.input}
-						defaultValue={isEdit ? reportData.location_data : "location"}
+						defaultValue={isEdit ? reportData.location_data : ""}
+						placeholder="Location"
 						value={locationValue}
 						onChangeText={(text) => setLocationValue(text)}
 						onFocus={() => {

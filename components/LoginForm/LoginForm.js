@@ -7,13 +7,13 @@ import {
 	TouchableOpacity,
 	Alert,
 } from "react-native";
-import { API_URL } from "@env";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ToastAndroid } from "react-native";
 
 const LoginForm = () => {
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 	const navigation = useNavigation();
 	const [usernameValue, setUsernameValue] = useState("");
 	const [passwordValue, setPasswordValue] = useState("");
