@@ -50,12 +50,6 @@ const ReportDetails = ({ navigation, route }) => {
 					navigation.navigate("ViewTips", { reportId: reportData.id });
 				}}
 			/>
-			<Button
-				title="Search Reports"
-				onPress={() => {
-					navigation.navigate("SearchReports");
-				}}
-			/>
 		</View>
 	);
 };
