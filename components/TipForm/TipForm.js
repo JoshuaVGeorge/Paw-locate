@@ -10,13 +10,13 @@ import {
 	Image,
 } from "react-native";
 import axios from "axios";
-import { API_URL } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import placeholderImg from "../../assets/icon.png";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 
 const TipForm = ({ reportId, userId }) => {
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 	const navigation = useNavigation();
 
 	const [textValue, setTextValue] = useState("");

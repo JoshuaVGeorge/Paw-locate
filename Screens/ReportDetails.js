@@ -3,9 +3,9 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import axios from "axios";
 import * as SplashScreen from "expo-splash-screen";
 import ReportDetailsCard from "../components/ReportDetailsCard/ReportDetailsCard";
-import { API_URL } from "@env";
 
 const ReportDetails = ({ navigation, route }) => {
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 	const { reportId, userId } = route.params;
 
 	SplashScreen.preventAutoHideAsync();

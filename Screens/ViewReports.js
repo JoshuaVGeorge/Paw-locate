@@ -9,9 +9,9 @@ import {
 import ReportCard from "../components/ReportCard/ReportCard";
 import axios from "axios";
 import * as SplashScreen from "expo-splash-screen";
-import { API_URL } from "@env";
 
 const ViewReports = ({ navigation }) => {
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 	SplashScreen.preventAutoHideAsync();
 
 	const [appReady, setAppReady] = useState(false);

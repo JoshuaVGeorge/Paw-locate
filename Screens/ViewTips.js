@@ -11,10 +11,10 @@ import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
 import TipCard from "../components/TipCard/TipCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "@env";
 import { useFocusEffect } from "@react-navigation/native";
 
 const ViewTips = ({ navigation, route }) => {
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 	const { reportId } = route.params;
 
 	SplashScreen.preventAutoHideAsync();

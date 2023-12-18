@@ -11,10 +11,10 @@ import ListTile from "../components/ListTile/ListTile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from "expo-splash-screen";
 import axios from "axios";
-import { API_URL } from "@env";
 import { useFocusEffect } from "@react-navigation/native";
 
 const Profile = ({ navigation, route }) => {
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 	SplashScreen.preventAutoHideAsync();
 	const goTo = (label, reportId, isTip) => {
 		if (isTip) {

@@ -13,9 +13,9 @@ import placeholderImg from "../../assets/icon.png";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
-import { API_URL } from "@env";
 
 const ReportForm = ({ isEdit, reportData, userId }) => {
+	const API_URL = process.env.EXPO_PUBLIC_API_URL;
 	const navigation = useNavigation();
 
 	const [petNameValue, setPetNameValue] = useState("");
