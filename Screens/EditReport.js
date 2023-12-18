@@ -42,7 +42,11 @@ const EditReport = ({ route }) => {
 				Keyboard.dismiss();
 			}}>
 			<SafeAreaView style={styles.container}>
-				<ReportForm isEdit={true} reportData={initialReportData} />
+				<ReportForm
+					isEdit={true}
+					reportData={initialReportData}
+					userId={initialReportData.user_id}
+				/>
 			</SafeAreaView>
 		</TouchableWithoutFeedback>
 	);
