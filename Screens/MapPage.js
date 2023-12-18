@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	View,
-	StyleSheet,
-	Text,
-	TouchableHighlight,
-	Button,
-} from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
 
 const homeRegion = {
@@ -57,7 +51,10 @@ const MapPage = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
-			<Text>This is just a demo, full functionality WIP</Text>
+			<Text>
+				This is just a demo. if you press a marker callout , it will take you to
+				that report
+			</Text>
 			<MapView style={styles.map} initialRegion={homeRegion}>
 				{makeMarkers()}
 			</MapView>
