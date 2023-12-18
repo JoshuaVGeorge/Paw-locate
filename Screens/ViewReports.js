@@ -52,7 +52,7 @@ const ViewReports = ({ navigation }) => {
 			/>
 			<Button
 				title="look at the map"
-				onPress={() => navigation.navigate("MapView")}></Button>
+				onPress={() => navigation.navigate("MapPage")}></Button>
 		</View>
 	);
 };
