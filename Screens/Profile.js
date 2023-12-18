@@ -98,6 +98,7 @@ const Profile = ({ navigation, route }) => {
 		const newTipObj = {
 			id: tip.id,
 			text_data: preview,
+			report_id: tip.report_id,
 		};
 
 		return newTipsArr.push(newTipObj);
@@ -150,7 +151,7 @@ const Profile = ({ navigation, route }) => {
 							primaryLabel={item.text_data}
 							sndLabel={"view report"}
 							goTo={goTo}
-							reportId={item.id}
+							reportId={item.report_id}
 							isTip={true}
 						/>
 					)}

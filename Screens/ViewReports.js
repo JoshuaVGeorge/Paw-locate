@@ -51,8 +51,8 @@ const ViewReports = ({ navigation }) => {
 				)}
 			/>
 			<Button
-				title="Search Reports"
-				onPress={() => navigation.navigate("SearchReports")}></Button>
+				title="look at the map"
+				onPress={() => navigation.navigate("MapView")}></Button>
 		</View>
 	);
 };

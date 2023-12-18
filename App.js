@@ -7,7 +7,7 @@ import Login from "./Screens/Login";
 import ViewReports from "./Screens/ViewReports";
 import CreateAccount from "./Screens/CreateAccount";
 import Profile from "./Screens/Profile";
-import SearchReports from "./Screens/SearchReports";
+import MapView from "./Screens/MapView";
 import CreateReport from "./Screens/CreateReport";
 import ReportDetails from "./Screens/ReportDetails";
 import AddTip from "./Screens/AddTip";
@@ -21,8 +21,8 @@ const App = () => {
 		<NavigationContainer>
 			<Stack.Navigator initialRouteName="Home">
 				<Stack.Screen name="Home" component={Home} />
+				{/* account routes */}
 				<Stack.Screen name="Login" component={Login} />
-				<Stack.Screen name="ViewReports" component={ViewReports} />
 				<Stack.Screen name="CreateAccount" component={CreateAccount} />
 				<Stack.Screen
 					name="Profile"
@@ -37,12 +37,17 @@ const App = () => {
 						),
 					})}
 				/>
-				<Stack.Screen name="SearchReports" component={SearchReports} />
+
+				{/* report routes */}
+				<Stack.Screen name="ViewReports" component={ViewReports} />
 				<Stack.Screen name="CreateReport" component={CreateReport} />
 				<Stack.Screen name="ReportDetails" component={ReportDetails} />
+				<Stack.Screen name="EditReport" component={EditReport} />
+				<Stack.Screen name="MapView" component={MapView} />
+
+				{/* tip routes */}
 				<Stack.Screen name="AddTip" component={AddTip} />
 				<Stack.Screen name="ViewTips" component={ViewTips} />
-				<Stack.Screen name="EditReport" component={EditReport} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
