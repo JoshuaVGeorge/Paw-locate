@@ -50,9 +50,6 @@ const ReportCard = ({
 			<View style={styles.section}>
 				<Text>{location}</Text>
 			</View>
-			<View style={styles.section}>
-				<Text>{status}</Text>
-			</View>
 		</TouchableOpacity>
 	);
 };
@@ -74,12 +71,13 @@ const styles = StyleSheet.create({
 		flex: 4,
 		borderBottomWidth: 1,
 		alignItems: "center",
-		padding: 10,
+		padding: 5,
 	},
 	image: {
-		aspectRatio: 16 / 9,
-		resizeMode: "contain",
-		height: "100%",
+		flex: 1,
+		aspectRatio: 4 / 3,
+		resizeMode: "cover",
+		width: "100%",
 		borderRadius: 4,
 	},
 });
