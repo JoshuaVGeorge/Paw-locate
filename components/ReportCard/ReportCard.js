@@ -34,7 +34,7 @@ const ReportCard = ({
 				});
 			}}>
 			<View style={styles.section}>
-				<Text>{petName}</Text>
+				<Text style={styles.title}>{petName}</Text>
 			</View>
 			<View style={styles.image__container}>
 				<Image
@@ -48,7 +48,7 @@ const ReportCard = ({
 				<Text>{descPreview}</Text>
 			</View>
 			<View style={styles.section}>
-				<Text>{location}</Text>
+				<Text style={styles.location}>{location}</Text>
 			</View>
 		</TouchableOpacity>
 	);
@@ -63,15 +63,18 @@ const styles = StyleSheet.create({
 	},
 	section: {
 		flex: 1,
-		borderBottomWidth: 1,
-		paddingLeft: 5,
+		paddingHorizontal: 10,
 		justifyContent: "center",
+	},
+	title: {
+		alignSelf: "center",
+		fontSize: 25,
 	},
 	image__container: {
 		flex: 4,
+		paddingBottom: 10,
 		borderBottomWidth: 1,
 		alignItems: "center",
-		padding: 5,
 	},
 	image: {
 		flex: 1,
@@ -79,6 +82,10 @@ const styles = StyleSheet.create({
 		resizeMode: "cover",
 		width: "100%",
 		borderRadius: 4,
+	},
+	location: {
+		alignSelf: "center",
+		fontSize: 15,
 	},
 });
 
