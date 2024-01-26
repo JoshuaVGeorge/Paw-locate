@@ -21,14 +21,11 @@ const ReportDetailsCard = ({
 					}}
 				/>
 			</View>
-			<View style={[styles.section, styles.description]}>
+			<View style={styles.section}>
 				<Text>{description}</Text>
 			</View>
 			<View style={styles.section}>
 				<Text>{location}</Text>
-			</View>
-			<View style={styles.section}>
-				<Text>{status}</Text>
 			</View>
 		</View>
 	);
@@ -44,26 +41,23 @@ const styles = StyleSheet.create({
 	section: {
 		flex: 1,
 		borderBottomWidth: 1,
-		paddingLeft: 5,
+		paddingLeft: 10,
 		justifyContent: "center",
 	},
 	title: {
 		alignItems: "center",
-	},
-	description: {
-		flex: 3,
 	},
 	image__container: {
 		flex: 5,
 		borderBottomWidth: 1,
 		alignItems: "center",
 		justifyContent: "center",
+		paddingHorizontal: 20,
 	},
 	image: {
-		aspectRatio: 16 / 9,
-		resizeMode: "contain",
-		maxWidth: 350,
-		height: "80%",
+		aspectRatio: 4 / 3,
+		resizeMode: "cover",
+		width: "100%",
 	},
 });
 
