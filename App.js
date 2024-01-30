@@ -38,16 +38,28 @@ const App = () => {
 					})}
 				/>
 
+				<Stack.Group
+					screenOptions={({ navigation }) => ({
+						headerRight: () => (
+							<TouchableOpacity
+								style={styles.home__button}
+								onPress={() => navigation.navigate("Login")}>
+								<Text>Profile</Text>
+							</TouchableOpacity>
+						),
+					})}>
+					<Stack.Screen name="MapPage" component={MapPage} />
+					<Stack.Screen name="ReportDetails" component={ReportDetails} />
+					<Stack.Screen name="ViewReports" component={ViewReports} />
+					<Stack.Screen name="ViewTips" component={ViewTips} />
+				</Stack.Group>
+
 				{/* report routes */}
-				<Stack.Screen name="ViewReports" component={ViewReports} />
 				<Stack.Screen name="CreateReport" component={CreateReport} />
-				<Stack.Screen name="ReportDetails" component={ReportDetails} />
 				<Stack.Screen name="EditReport" component={EditReport} />
-				<Stack.Screen name="MapPage" component={MapPage} />
 
 				{/* tip routes */}
 				<Stack.Screen name="AddTip" component={AddTip} />
-				<Stack.Screen name="ViewTips" component={ViewTips} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
