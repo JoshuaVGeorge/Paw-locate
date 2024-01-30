@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	StyleSheet,
@@ -8,16 +8,57 @@ import {
 	Keyboard,
 } from "react-native";
 import LoginForm from "../components/LoginForm/LoginForm";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ToastAndroid } from "react-native";
 
 const Login = ({ navigation }) => {
+	const [userToken, setUserToken] = useState("");
+	const [userId, setUserId] = useState("");
+	const [userName, setUserName] = useState("");
+
+	useEffect(() => {
+		checkLoggedIn();
+		if (userToken && userId && userName) {
+			navigation.navigate("Profile", {
+				userId: userId,
+				userToken: userToken,
+				userName: userName,
+			});
+		}
+	});
+
+	const checkLoggedIn = async () => {
+		try {
+			let asyncUserToken = await AsyncStorage.getItem("userToken");
+			let asyncUserId = await AsyncStorage.getItem("userId");
+			let asyncUserName = await AsyncStorage.getItem("userName");
+			setUserToken(asyncUserToken);
+			setUserId(asyncUserId);
+			setUserName(asyncUserName);
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	const showToast = () => {
+		if (userToken && userName) {
+			ToastAndroid.show(`Logged in as ${userName}`, ToastAndroid.SHORT);
+		}
+	};
+
 	return (
 		<TouchableWithoutFeedback
+			onLayout={showToast}
 			onPress={() => {
 				Keyboard.dismiss();
 			}}>
 			<View style={styles.container}>
 				<Text style={styles.title}>PAW LOCATE</Text>
-				<LoginForm />
+				<LoginForm
+					setUserId={setUserId}
+					setUserName={setUserName}
+					setUserToken={setUserToken}
+				/>
 				<TouchableOpacity
 					style={styles.button}
 					title="create account"

@@ -10,7 +10,6 @@ import {
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ToastAndroid } from "react-native";
 
 const LoginForm = () => {
 	const API_URL = process.env.EXPO_PUBLIC_API_URL;
@@ -18,37 +17,16 @@ const LoginForm = () => {
 	const [usernameValue, setUsernameValue] = useState("");
 	const [passwordValue, setPasswordValue] = useState("");
 
-	const [userToken, setUserToken] = useState("");
-	const [userId, setUserId] = useState("");
-	const [userName, setUserName] = useState("");
-
-	useEffect(() => {
-		checkLoggedIn();
-		if (userToken && userId && userName) {
-			navigation.navigate("Profile", {
-				userId: userId,
-				userToken: userToken,
-				userName: userName,
-			});
-		}
-	});
-
 	const loginUser = () => {
 		const formData = { user_name: usernameValue, password: passwordValue };
 		axios
 			.post(`${API_URL}/profile`, formData)
 			.then((res) => {
-				let data = res.data;
-				setUserToken(data.token);
-				setUserId(data.profile[0].id);
-				return data;
-			})
-			.then((res) => {
-				storeData(res);
+				storeData(res.data);
 				navigation.replace("Profile", {
-					userId: res.profile[0].id,
-					userToken: res.token,
-					userName: res.profile[0].user_name,
+					userId: res.data.profile[0].id,
+					userToken: res.data.token,
+					userName: res.data.profile[0].user_name,
 				});
 			})
 			.catch((err) => {
@@ -66,27 +44,8 @@ const LoginForm = () => {
 		}
 	};
 
-	const checkLoggedIn = async () => {
-		try {
-			let asyncUserToken = await AsyncStorage.getItem("userToken");
-			let asyncUserId = await AsyncStorage.getItem("userId");
-			let asyncUserName = await AsyncStorage.getItem("userName");
-			setUserToken(asyncUserToken);
-			setUserId(asyncUserId);
-			setUserName(asyncUserName);
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
-	const showToast = () => {
-		if (userToken && userName) {
-			ToastAndroid.show(`Logged in as ${userName}`, ToastAndroid.SHORT);
-		}
-	};
-
 	return (
-		<View style={styles.container} onLayout={showToast}>
+		<View style={styles.container}>
 			<TextInput
 				style={styles.input}
 				placeholder="Username"
