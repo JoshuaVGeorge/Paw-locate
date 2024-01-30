@@ -6,7 +6,6 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	Keyboard,
-	Button,
 } from "react-native";
 import LoginForm from "../components/LoginForm/LoginForm";
 
